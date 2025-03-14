@@ -28,14 +28,9 @@ class ImouEntity(CoordinatorEntity):
         self._entity_type = entity_type
         self._device = device
         self.entity_available = None
-        self._unique_id = (
-            self._device.device_id
-            + "_"
-            + self._device.channel_id
-            + "#"
-            + self._entity_type
-        )
+        self._attr_unique_id = f"{config_entry.entry_id}_{entity_type}"
         self._attr_translation_key = entity_type
+        self._attr_name = entity_type
 
     @property
     def device_info(self) -> DeviceInfo:
@@ -43,9 +38,9 @@ class ImouEntity(CoordinatorEntity):
         return DeviceInfo(
             identifiers={
                 # The combination of DeviceId and ChannelId uniquely identifies the device
-                (DOMAIN, self._device.device_id + "_" + self._device.channel_id)
+                (DOMAIN, self._device.device_id + "_" + self._device.channel_id if self._device.channel_id else self._device.product_id)
             },
-            name=self._device.channel_name,
+            name=self._device.channel_name if self._device.channel_name else self._device.device_name,
             manufacturer=self._device.manufacturer,
             model=self._device.model,
             sw_version=self._device.swversion,
@@ -55,7 +50,7 @@ class ImouEntity(CoordinatorEntity):
     @property
     def unique_id(self):
         """Return a unique ID to use for this entity."""
-        return self._unique_id
+        return self._attr_unique_id
 
     @property
     def translation_key(self):
@@ -67,4 +62,4 @@ class ImouEntity(CoordinatorEntity):
         """Return entity is available."""
         if self._entity_type == PARAM_STATUS:
             return True
-        return self._device.sensors[PARAM_STATUS] != DeviceStatus.OFFLINE.status
+        return self._device.sensors[PARAM_STATUS] != DeviceStatus.OFFLINE.value

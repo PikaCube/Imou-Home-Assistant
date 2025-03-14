@@ -19,57 +19,69 @@
       "request_failed": "请求失败"
     }
   },
+  "options": {
+    "step": {
+      "init": {
+        "data": {
+          "update_interval": "自动刷新时间（秒）",
+          "download_snap_wait_time": "下载抓图等待时间（秒）",
+          "live_resolution": "视频分辨率",
+          "rotation_duration": "云台转动持续时间（毫秒）"
+        }
+      }
+    }
+  },
   "entity": {
     "sensor": {
       "storage_used": {
-        "name": "\u5b58\u50a8\u4f7f\u7528\u7387"
+        "name": "存储使用率"
       },
       "status": {
-        "name": "\u72b6\u6001"
+        "name": "状态"
       }
     },
     "select": {
       "night_vision_mode": {
-        "name": "Night Vision Mode"
+        "name": "夜视模式"
       }
     },
     "switch": {
       "motion_detect": {
-        "name": "Motion Detect"
+        "name": "移动检测"
       },
       "ab_alarm_sound": {
-        "name": "Abnormal Sound Alarm"
+        "name": "异常音告警"
       },
       "close_camera": {
-        "name": "Close Camera"
+        "name": "隐私模式"
       },
       "white_light": {
-        "name": "White Light"
+        "name": "白光灯"
       },
       "audio_encode_control": {
-        "name": "Audio Encode Control"
+        "name": "音频编码"
       }
     },
     "button": {
       "ptz_up": {
-        "name": "Ptz Up"
+        "name": "云台向上"
       },
       "ptz_down": {
-        "name": "Ptz Down"
+        "name": "云台向下"
       },
       "ptz_left": {
-        "name": "Ptz Left"
+        "name": "云台向左"
       },
       "ptz_right": {
-        "name": "Ptz Right"
+        "name": "云台向右"
       },
       "restart_device": {
-        "name": "Restart Device"
+        "name": "重启设备"
       }
     },
     "camera": {
       "camera": {
-        "name": "Camera"
+        "name": "直播"
       }
     }
   }
