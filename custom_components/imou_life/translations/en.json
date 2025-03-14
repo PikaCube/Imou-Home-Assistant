@@ -34,15 +34,53 @@
   "entity": {
     "sensor": {
       "storage_used": {
-        "name": "Storage Used"
+        "name": "Storage Used",
+        "unit_of_measurement": "%"
       },
       "status": {
         "name": "Status"
+      },
+      "battery": {
+        "name": "Battery",
+        "unit_of_measurement": "%"
+      },
+      "temperature_current": {
+        "name": "Current Temperature",
+        "unit_of_measurement": "°C"
+      },
+      "humidity_current": {
+        "name": "Current Humidity",
+        "unit_of_measurement": "%RH"
       }
     },
     "select": {
       "night_vision_mode": {
-        "name": "Night Vision Mode"
+        "name": "Night Vision Mode",
+        "options": {
+          "Intelligent": "Intelligent",
+          "FullColor": "FullColor",
+          "Infrared": "Infrared",
+          "Off": "Off",
+          "LowLight": "LowLight",
+          "SmartLowLight": "SmartLowLight"
+        }
+      },
+      "mode": {
+        "name": "Mode",
+        "options": {
+          "0": "HomeMode",
+          "1": "AwayFromHomeMode",
+          "2": "DisarmMode"
+        }
+      },
+      "device_volume": {
+        "name": "Volume",
+        "options": {
+          "-1": "Mute",
+          "0": "LowVolume",
+          "1": "MediumVolume",
+          "2": "HighVolume"
+        }
       }
     },
     "switch": {
@@ -60,6 +98,15 @@
       },
       "audio_encode_control": {
         "name": "Audio Encode Control"
+      },
+      "ai_human": {
+        "name": "Human Detect"
+      },
+      "light": {
+        "name": "Light"
+      },
+      "door_contact_status": {
+        "name": "Door Contact Status"
       }
     },
     "button": {
@@ -77,6 +124,9 @@
       },
       "restart_device": {
         "name": "Restart Device"
+      },
+      "mute": {
+        "name": "Mute"
       }
     },
     "camera": {

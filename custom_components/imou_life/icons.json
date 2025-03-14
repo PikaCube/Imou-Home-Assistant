@@ -4,8 +4,8 @@
       "storage_used": {
         "default": "mdi:harddisk",
         "state": {
-          "disk_normal": "mdi:harddisk",
-          "disk_abnormal": "mdi:harddisk-remove"
+          "No Storage Medium": "mdi:harddisk-remove",
+          "Abnormal": "mdi:harddisk-remove"
         }
       },
       "status": {
@@ -16,11 +16,26 @@
           "sleep": "mdi:sleep",
           "upgrading": "mdi:cloud-arrow-up"
         }
+      },
+      "power": {
+        "default": "mdi:battery"
+      },
+      "temperature_current": {
+        "default": "mdi:home-thermometer-outline"
+      },
+      "humidity_current": {
+        "default": "mdi:air-humidifier"
       }
     },
     "select": {
       "night_vision_mode": {
         "default": "mdi:weather-night"
+      },
+      "mode": {
+        "default": "mdi:auto-mode"
+      },
+      "device_volume": {
+        "default": "mdi:volume-high"
       }
     },
     "switch": {
