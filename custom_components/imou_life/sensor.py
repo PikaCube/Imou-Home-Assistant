@@ -10,7 +10,7 @@ from .entity import ImouEntity
 _LOGGER: logging.Logger = logging.getLogger(__package__)
 
 
-async def async_setup_entry(  # noqa: D103
+async def async_setup_entry(
     hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback
 ) -> None:
     imou_coordinator = hass.data[DOMAIN][entry.entry_id]
@@ -26,5 +26,5 @@ class ImouSensor(ImouEntity):
     """imou sensor."""
 
     @property
-    def state(self):  # noqa: D102
+    def state(self):
         return self._device.sensors[self._entity_type]
