@@ -11,7 +11,8 @@ from pyimouapi.exceptions import ImouException
 from pyimouapi.ha_device import ImouHaDevice
 
 from . import ImouDataUpdateCoordinator
-from .const import DOMAIN, PARAM_MOTION_DETECT, PARAM_STORAGE_USED
+from .const import DOMAIN, PARAM_MOTION_DETECT, PARAM_STORAGE_USED, PARAM_LIVE_RESOLUTION, PARAM_LIVE_PROTOCOL, \
+    PARAM_DOWNLOAD_SNAP_WAIT_TIME
 from .entity import ImouEntity
 
 _LOGGER: logging.Logger = logging.getLogger(__package__)
@@ -39,15 +40,16 @@ class ImouCamera(ImouEntity, Camera):
         config_entry: ConfigEntry,
         device: ImouHaDevice,
     ):
-        """Initialize."""
-        Camera.__init__(self)
-        ImouEntity.__init__(self, coordinator, config_entry, "camera", device)
+        if device.channel_id is not None:
+            """Initialize."""
+            Camera.__init__(self)
+            ImouEntity.__init__(self, coordinator, config_entry, "camera", device)
 
     async def stream_source(self) -> str | None:
         """GET STREAMING ADDRESS."""
         try:
             return await self.coordinator.device_manager.async_get_device_stream(
-                self._device
+                self._device,self.config_entry.options.get(PARAM_LIVE_RESOLUTION),self.config_entry.options.get(PARAM_LIVE_PROTOCOL),
             )
         except ImouException as e:
             raise HomeAssistantError(e.message)  # noqa: B904
@@ -58,7 +60,7 @@ class ImouCamera(ImouEntity, Camera):
         """Return bytes of camera image."""
         try:
             return await self.coordinator.device_manager.async_get_device_image(
-                self._device
+                self._device,self.config_entry.options.get(PARAM_DOWNLOAD_SNAP_WAIT_TIME)
             )
         except ImouException as e:
             raise HomeAssistantError(e.message)  # noqa: B904

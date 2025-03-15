@@ -26,6 +26,7 @@
           "update_interval": "Polling interval (seconds)",
           "download_snap_wait_time": "Wait before downloading camera snapshot (seconds)",
           "live_resolution": "Video resolution",
+          "live_protocol": "Video Protocol",
           "rotation_duration": "The time of each rotation of the gimbal (milliseconds)"
         }
       }

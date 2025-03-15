@@ -26,6 +26,7 @@
           "update_interval": "自动刷新时间（秒）",
           "download_snap_wait_time": "下载抓图等待时间（秒）",
           "live_resolution": "视频分辨率",
+          "live_protocol": "视频协议",
           "rotation_duration": "云台转动持续时间（毫秒）"
         }
       }

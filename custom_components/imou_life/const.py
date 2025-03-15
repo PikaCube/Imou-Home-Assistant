@@ -12,6 +12,10 @@ CONF_API_URL_HZ = "openapi.lechange.cn"
 CONF_HD = "HD"
 CONF_SD = "SD"
 
+CONF_HTTP = "http"
+CONF_HTTPS = "https"
+
+
 
 # parameters:
 PARAM_API_URL = "api_url"
@@ -26,6 +30,7 @@ PARAM_RESTART_DEVICE = "restart_device"
 PARAM_UPDATE_INTERVAL = "update_interval"
 PARAM_DOWNLOAD_SNAP_WAIT_TIME = "download_snap_wait_time"
 PARAM_LIVE_RESOLUTION = "live_resolution"
+PARAM_LIVE_PROTOCOL  = "live_protocol"
 PARAM_ROTATION_DURATION = "rotation_duration"
 
 

@@ -28,7 +28,7 @@ class ImouEntity(CoordinatorEntity):
         self._entity_type = entity_type
         self._device = device
         self.entity_available = None
-        self._attr_unique_id = f"{config_entry.entry_id}_{entity_type}"
+        self._attr_unique_id = f"{config_entry.entry_id}_{device.device_id}_{entity_type}"
         self._attr_translation_key = entity_type
         self._attr_name = entity_type
 

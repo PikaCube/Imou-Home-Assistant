@@ -1,6 +1,6 @@
 import logging
 
-from homeassistant.components.sensor import SensorEntity
+from homeassistant.components.sensor import SensorEntity, SensorDeviceClass
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
@@ -31,5 +31,13 @@ class ImouSensor(ImouEntity,SensorEntity):
         return self._device.sensors[self._entity_type]
 
     @property
-    def native_unit_of_measurement(self):
-        return self._device.sensors[self._entity_type + "_unit"]
+    def device_class(self):
+        match self._entity_type:
+            case "battery":
+                return SensorDeviceClass.BATTERY
+            case "temperature_current":
+                return SensorDeviceClass.TEMPERATURE
+            case "humidity_current":
+                return SensorDeviceClass.HUMIDITY
+            case _:
+                return None
