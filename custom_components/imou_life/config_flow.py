@@ -97,18 +97,20 @@ class ImouOptionsFlow(config_entries.OptionsFlow):
     async def async_step_init(self, user_input=None):
         """Manage the options."""
         if user_input is not None:
-            return self.async_create_entry(title="", data=user_input)
+            return self.async_create_entry(data=user_input)
         return self.async_show_form(
             step_id="init",
-            data_schema=vol.Schema(
-                {
-                    vol.Required(PARAM_UPDATE_INTERVAL, default= 60): int,
-                    vol.Required(PARAM_DOWNLOAD_SNAP_WAIT_TIME, default=3):int,
-                    vol.Required(PARAM_LIVE_RESOLUTION, default=CONF_HD): vol.In(
-                        [CONF_HD, CONF_SD]),
-                    vol.Required(PARAM_LIVE_RESOLUTION, default=CONF_HTTPS): vol.In(
-                        [CONF_HTTPS, CONF_HTTP]),
-                    vol.Required(PARAM_ROTATION_DURATION, default=500): int,
-                }
-            )
+            data_schema=self.add_suggested_values_to_schema(
+                vol.Schema(
+                    {
+                        vol.Required(PARAM_UPDATE_INTERVAL, default= 60): int,
+                        vol.Required(PARAM_DOWNLOAD_SNAP_WAIT_TIME, default=3):int,
+                        vol.Required(PARAM_LIVE_RESOLUTION, default=CONF_HD): vol.In(
+                            [CONF_HD, CONF_SD]),
+                        vol.Required(PARAM_LIVE_RESOLUTION, default=CONF_HTTPS): vol.In(
+                            [CONF_HTTPS, CONF_HTTP]),
+                        vol.Required(PARAM_ROTATION_DURATION, default=500): int,
+                    }
+                ), self.config_entry.options
+            ),
         )
