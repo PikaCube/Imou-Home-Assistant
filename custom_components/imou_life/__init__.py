@@ -11,7 +11,7 @@ from pyimouapi.device import ImouDeviceManager
 from pyimouapi.ha_device import ImouHaDeviceManager
 from pyimouapi.openapi import ImouOpenApiClient
 
-from .const import DOMAIN, PARAM_API_URL, PARAM_APP_ID, PARAM_APP_SECRET, PLATFORMS
+from .const import DOMAIN, PARAM_API_URL, PARAM_APP_ID, PARAM_APP_SECRET, PLATFORMS, PARAM_UPDATE_INTERVAL
 from .coordinator import ImouDataUpdateCoordinator
 
 _LOGGER: logging.Logger = logging.getLogger(__package__)
@@ -19,7 +19,7 @@ _LOGGER: logging.Logger = logging.getLogger(__package__)
 
 async def async_setup_entry(hass: HomeAssistant, config: ConfigEntry) -> bool:
     """Set up entry."""
-    _LOGGER.info("starting setup imou")
+    _LOGGER.info("starting setup imou life")
     imou_client = ImouOpenApiClient(
         config.data.get(PARAM_APP_ID),
         config.data.get(PARAM_APP_SECRET),
@@ -27,7 +27,7 @@ async def async_setup_entry(hass: HomeAssistant, config: ConfigEntry) -> bool:
     )
     device_manager = ImouDeviceManager(imou_client)
     imou_device_manager = ImouHaDeviceManager(device_manager)
-    imou_coordinator = ImouDataUpdateCoordinator(hass, imou_device_manager)
+    imou_coordinator = ImouDataUpdateCoordinator(hass, imou_device_manager,config.options.get(PARAM_UPDATE_INTERVAL))
     if hass.data.get(DOMAIN) is None:
         hass.data.setdefault(DOMAIN, {})
     hass.data[DOMAIN][config.entry_id] = imou_coordinator

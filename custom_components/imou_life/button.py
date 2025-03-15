@@ -7,7 +7,7 @@ from homeassistant.exceptions import HomeAssistantError
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from pyimouapi.exceptions import ImouException
 
-from .const import DOMAIN, PARAM_RESTART_DEVICE
+from .const import DOMAIN, PARAM_RESTART_DEVICE, PARAM_ROTATION_DURATION
 from .entity import ImouEntity
 
 
@@ -33,7 +33,7 @@ class ImouButton(ImouEntity, ButtonEntity):
         """Handle button press."""
         try:
             await self.coordinator.device_manager.async_press_button(
-                self._device.device_id, self._device.channel_id, self._entity_type
+                self._device,self._entity_type,self.config_entry.options.get(PARAM_ROTATION_DURATION)
             )
         except ImouException as e:
             raise HomeAssistantError(e.message)  # noqa: B904

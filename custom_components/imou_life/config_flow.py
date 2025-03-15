@@ -17,7 +17,7 @@ from .const import (
     PARAM_API_URL,
     PARAM_APP_ID,
     PARAM_APP_SECRET, CONF_API_URL_HZ, PARAM_UPDATE_INTERVAL, PARAM_DOWNLOAD_SNAP_WAIT_TIME, PARAM_LIVE_RESOLUTION,
-    CONF_HD, CONF_SD, PARAM_ROTATION_DURATION,
+    CONF_HD, CONF_SD, PARAM_ROTATION_DURATION, CONF_HTTPS, CONF_HTTP,
 )
 
 _LOGGER: logging.Logger = logging.getLogger(__package__)
@@ -106,6 +106,8 @@ class ImouOptionsFlow(config_entries.OptionsFlow):
                     vol.Required(PARAM_DOWNLOAD_SNAP_WAIT_TIME, default=3):int,
                     vol.Required(PARAM_LIVE_RESOLUTION, default=CONF_HD): vol.In(
                         [CONF_HD, CONF_SD]),
+                    vol.Required(PARAM_LIVE_RESOLUTION, default=CONF_HTTPS): vol.In(
+                        [CONF_HTTPS, CONF_HTTP]),
                     vol.Required(PARAM_ROTATION_DURATION, default=500): int,
                 }
             )
