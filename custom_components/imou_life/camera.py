@@ -1,6 +1,7 @@
 """Imou camera entity."""
 
 import logging
+import re
 
 from homeassistant.components.camera import Camera, CameraEntityFeature
 from homeassistant.config_entries import ConfigEntry
@@ -69,8 +70,8 @@ class ImouCamera(ImouEntity, Camera):
     def is_recording(self) -> bool:
         """The battery level is normal and the motion detect is activated, indicating that it is in  recording mode."""
         return (
-            "%" in self._device.sensors[PARAM_STORAGE_USED]
-            and self._device.switches[PARAM_MOTION_DETECT]
+                self.is_strict_number(self._device.sensors[PARAM_STORAGE_USED])
+                and self._device.switches[PARAM_MOTION_DETECT]
         )
 
     @property
@@ -83,3 +84,7 @@ class ImouCamera(ImouEntity, Camera):
     def motion_detection_enabled(self) -> bool:
         """Camera Motion Detection Status."""
         return self._device.switches[PARAM_MOTION_DETECT]
+
+    @staticmethod
+    def is_strict_number(s):
+        return re.match(r"^-?\d+(\.\d+)?$", s) is not None
