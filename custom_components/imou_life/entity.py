@@ -30,7 +30,7 @@ class ImouEntity(CoordinatorEntity):
         self.entity_available = None
         self._attr_unique_id =(self._device.device_id
          + "_"
-         + self._device.channel_id if self._device.channel_id else self._device.product_id
+         + self._device.channel_id if self._device.channel_id is not None else self._device.product_id
          + "#"
          + self._entity_type)
         self._attr_translation_key = entity_type
