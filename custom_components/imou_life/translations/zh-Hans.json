@@ -100,7 +100,7 @@
       "audio_encode_control": {
         "name": "音频编码"
       },
-      "ai_human": {
+      "header_detect": {
         "name": "人型检测"
       },
       "light": {

@@ -100,7 +100,7 @@
       "audio_encode_control": {
         "name": "Audio Encode Control"
       },
-      "ai_human": {
+      "header_detect": {
         "name": "Human Detect"
       },
       "light": {
