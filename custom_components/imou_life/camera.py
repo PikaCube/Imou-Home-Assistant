@@ -87,7 +87,9 @@ class ImouCamera(ImouEntity, Camera):
     @property
     def motion_detection_enabled(self) -> bool:
         """Camera Motion Detection Status."""
-        return self._device.switches[PARAM_MOTION_DETECT]
+        return (self._device.switches[PARAM_MOTION_DETECT] if PARAM_MOTION_DETECT in self._device.switches else False
+                or
+                self._device.switches[PARAM_HEADER_DETECT] if PARAM_HEADER_DETECT in self._device.switches else False)
 
     @staticmethod
     def is_strict_number(s):
