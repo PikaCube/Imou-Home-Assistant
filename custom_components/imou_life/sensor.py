@@ -31,6 +31,18 @@ class ImouSensor(ImouEntity,SensorEntity):
         return self._device.sensors[self._entity_type]
 
     @property
+    def native_unit_of_measurement(self):
+        match self._entity_type:
+            case "battery":
+                return "%"
+            case "temperature_current":
+                return "°C"
+            case "humidity_current":
+                return "%RH"
+            case _:
+                return None
+
+    @property
     def device_class(self):
         match self._entity_type:
             case "battery":

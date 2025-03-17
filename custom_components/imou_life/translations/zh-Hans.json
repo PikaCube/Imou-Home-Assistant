@@ -42,16 +42,13 @@
         "name": "状态"
       },
       "battery": {
-        "name": "电量",
-        "unit_of_measurement": "%"
+        "name": "电量"
       },
       "temperature_current": {
-        "name": "当前温度",
-        "unit_of_measurement": "°C"
+        "name": "当前温度"
       },
       "humidity_current": {
-        "name": "当前湿度",
-        "unit_of_measurement": "%RH"
+        "name": "当前湿度"
       }
     },
     "select": {
