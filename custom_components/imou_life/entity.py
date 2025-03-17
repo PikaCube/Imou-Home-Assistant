@@ -28,13 +28,6 @@ class ImouEntity(CoordinatorEntity):
         self._entity_type = entity_type
         self._device = device
         self.entity_available = None
-        self._attr_unique_id =(self._device.device_id
-         + "_"
-         + self._device.channel_id if self._device.channel_id is not None else self._device.product_id
-         + "#"
-         + self._entity_type)
-        self._attr_translation_key = entity_type
-        self._attr_name = entity_type
 
     @property
     def device_info(self) -> DeviceInfo:
@@ -42,24 +35,28 @@ class ImouEntity(CoordinatorEntity):
         return DeviceInfo(
             identifiers={
                 # The combination of DeviceId and ChannelId uniquely identifies the device
-                (DOMAIN, self._device.device_id + "_" + self._device.channel_id if self._device.channel_id else self._device.product_id)
+                (DOMAIN, self._device.device_id + "_" + self._device.channel_id if self._device.channel_id is not None else self._device.product_id)
             },
-            name=self._device.channel_name if self._device.channel_name else self._device.device_name,
+            name=self._device.channel_name if self._device.channel_name is not None else self._device.device_name,
             manufacturer=self._device.manufacturer,
             model=self._device.model,
             sw_version=self._device.swversion,
-            serial_number=self._device.device_id,
+            serial_number=self._device.device_id
         )
 
     @property
     def unique_id(self):
         """Return a unique ID to use for this entity."""
-        return self._attr_unique_id
+        return (self._device.device_id
+         + "_"
+         + self._device.channel_id if self._device.channel_id is not None else self._device.product_id
+         + "#"
+         + self._entity_type)
 
     @property
     def translation_key(self):
         """Return translation_key."""
-        return self._attr_translation_key
+        return self._entity_type
 
     @property
     def available(self) -> bool:
@@ -70,4 +67,4 @@ class ImouEntity(CoordinatorEntity):
 
     @property
     def name(self) -> str:
-        return self._attr_name
+        return self.unique_id+self._entity_type
