@@ -39,7 +39,7 @@ class ImouCamera(ImouEntity, Camera):
 
     def __init__(self, coordinator: ImouDataUpdateCoordinator, config_entry: ConfigEntry, entity_type: str,device: ImouHaDevice):
         Camera.__init__(self)
-        ImouEntity.__init__(coordinator, config_entry, entity_type, device)
+        ImouEntity.__init__(self, coordinator, config_entry, entity_type, device)
         self._attr_name = entity_type
 
     async def stream_source(self) -> str | None:
