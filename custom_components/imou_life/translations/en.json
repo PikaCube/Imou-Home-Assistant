@@ -42,16 +42,13 @@
         "name": "Status"
       },
       "battery": {
-        "name": "Battery",
-        "unit_of_measurement": "%"
+        "name": "Battery"
       },
       "temperature_current": {
-        "name": "Current Temperature",
-        "unit_of_measurement": "°C"
+        "name": "Current Temperature"
       },
       "humidity_current": {
-        "name": "Current Humidity",
-        "unit_of_measurement": "%RH"
+        "name": "Current Humidity"
       }
     },
     "select": {
