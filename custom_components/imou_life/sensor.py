@@ -20,7 +20,8 @@ async def async_setup_entry(
         for sensor_type in device.sensors:
             sensor_entity = ImouSensor(imou_coordinator, entry, sensor_type, device)
             entities.append(sensor_entity)
-    async_add_entities(entities)
+    if len(entities) > 0:
+        async_add_entities(entities)
 
 
 class ImouSensor(ImouEntity,SensorEntity):

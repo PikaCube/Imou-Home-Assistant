@@ -23,7 +23,8 @@ async def async_setup_entry(  # noqa: D103
         for select_type in device.selects:
             select_entity = ImouSelect(imou_coordinator, entry, select_type, device)
             entities.append(select_entity)
-    async_add_entities(entities)
+    if len(entities) > 0:
+        async_add_entities(entities)
 
 
 class ImouSelect(ImouEntity, SelectEntity):

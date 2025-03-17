@@ -24,7 +24,8 @@ async def async_setup_entry(  # noqa: D103
         for switch_type in device.switches:
             switch_entity = ImouSwitch(imou_coordinator, entry, switch_type, device)
             entities.append(switch_entity)
-    async_add_entities(entities)
+    if len(entities) > 0:
+        async_add_entities(entities)
 
 
 class ImouSwitch(ImouEntity, SwitchEntity):
