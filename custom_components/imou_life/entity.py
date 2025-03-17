@@ -69,5 +69,5 @@ class ImouEntity(CoordinatorEntity):
         return self._device.sensors[PARAM_STATUS] != DeviceStatus.OFFLINE.value
 
     @property
-    def name(self) -> bool:
+    def name(self) -> str:
         return self._attr_name
