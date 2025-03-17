@@ -9,9 +9,7 @@ from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import HomeAssistantError
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from pyimouapi.exceptions import ImouException
-from pyimouapi.ha_device import ImouHaDevice
 
-from . import ImouDataUpdateCoordinator
 from .const import DOMAIN, PARAM_MOTION_DETECT, PARAM_STORAGE_USED, PARAM_LIVE_RESOLUTION, PARAM_LIVE_PROTOCOL, \
     PARAM_DOWNLOAD_SNAP_WAIT_TIME, PARAM_HEADER_DETECT
 from .entity import ImouEntity
@@ -26,9 +24,10 @@ async def async_setup_entry(  # noqa: D103
     entities = []
     for device in imou_coordinator.devices:
         if device.channel_id is not None:
-            camera_entity = ImouCamera(imou_coordinator, entry, device, "camera")
+            camera_entity = ImouCamera(imou_coordinator, entry,"camera", device)
             entities.append(camera_entity)
-    async_add_entities(entities)
+    if len(entities) > 0:
+        async_add_entities(entities)
 
 
 class ImouCamera(ImouEntity, Camera):
@@ -36,9 +35,10 @@ class ImouCamera(ImouEntity, Camera):
 
     _attr_supported_features = CameraEntityFeature.STREAM
 
-    def __init__(self, coordinator: ImouDataUpdateCoordinator, config_entry: ConfigEntry, device: ImouHaDevice,
-                 entity_type: str):
-        super().__init__(coordinator, config_entry, entity_type, device)
+    # def __init__(self, coordinator: ImouDataUpdateCoordinator, config_entry: ConfigEntry, device: ImouHaDevice,
+    #              entity_type: str):
+    #     Camera.__init__(self)
+    #     ImouEntity.__init__(coordinator, config_entry, entity_type, device)
 
     async def stream_source(self) -> str | None:
         """GET STREAMING ADDRESS."""

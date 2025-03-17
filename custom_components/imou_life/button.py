@@ -23,7 +23,8 @@ async def async_setup_entry(
             if button_type == PARAM_RESTART_DEVICE:
                 button_entity._attr_device_class = ButtonDeviceClass.RESTART  # noqa: SLF001
             entities.append(button_entity)
-    async_add_entities(entities)
+    if len(entities) > 0:
+        async_add_entities(entities)
 
 
 class ImouButton(ImouEntity, ButtonEntity):
