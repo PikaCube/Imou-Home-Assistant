@@ -39,7 +39,9 @@ class ImouCamera(ImouEntity, Camera):
 
     def __init__(self, coordinator: ImouDataUpdateCoordinator, config_entry: ConfigEntry, entity_type: str,device: ImouHaDevice):
         Camera.__init__(self)
+        _LOGGER.info(f"ImouCamera name {self._attr_name}")
         ImouEntity.__init__(self, coordinator, config_entry, entity_type, device)
+        _LOGGER.info(f"ImouCamera name {self._attr_name}")
         self._attr_name = entity_type
 
     async def stream_source(self) -> str | None:
