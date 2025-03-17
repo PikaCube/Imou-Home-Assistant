@@ -25,8 +25,9 @@ async def async_setup_entry(  # noqa: D103
     imou_coordinator = hass.data[DOMAIN][entry.entry_id]
     entities = []
     for device in imou_coordinator.devices:
-        camera_entity = ImouCamera(imou_coordinator, entry, device)
-        entities.append(camera_entity)
+        if device.channel_id is not None:
+            camera_entity = ImouCamera(imou_coordinator, entry, device, "camera")
+            entities.append(camera_entity)
     async_add_entities(entities)
 
 
@@ -35,16 +36,9 @@ class ImouCamera(ImouEntity, Camera):
 
     _attr_supported_features = CameraEntityFeature.STREAM
 
-    def __init__(
-        self,
-        coordinator: ImouDataUpdateCoordinator,
-        config_entry: ConfigEntry,
-        device: ImouHaDevice,
-    ):
-        if device.channel_id is not None:
-            """Initialize."""
-            Camera.__init__(self)
-            ImouEntity.__init__(self, coordinator, config_entry, "camera", device)
+    def __init__(self, coordinator: ImouDataUpdateCoordinator, config_entry: ConfigEntry, device: ImouHaDevice,
+                 entity_type: str):
+        super().__init__(coordinator, config_entry, entity_type, device)
 
     async def stream_source(self) -> str | None:
         """GET STREAMING ADDRESS."""
