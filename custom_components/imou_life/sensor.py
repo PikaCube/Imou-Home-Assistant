@@ -37,6 +37,8 @@ class ImouSensor(ImouEntity,SensorEntity):
         match self._entity_type:
             case "battery":
                 return "%"
+            case "storage_used":
+                return "%"
             case "temperature_current":
                 return "°C"
             case "humidity_current":

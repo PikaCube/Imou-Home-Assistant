@@ -35,7 +35,7 @@ class ImouButton(ImouEntity, ButtonEntity):
         """Handle button press."""
         try:
             await self.coordinator.device_manager.async_press_button(
-                self._device,self._entity_type,self.config_entry.options.get(PARAM_ROTATION_DURATION)
+                self._device,self._entity_type,self.config_entry.options.get(PARAM_ROTATION_DURATION,500)
             )
         except ImouException as e:
             raise HomeAssistantError(e.message)  # noqa: B904
