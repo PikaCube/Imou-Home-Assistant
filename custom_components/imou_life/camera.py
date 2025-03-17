@@ -22,12 +22,13 @@ _LOGGER: logging.Logger = logging.getLogger(__package__)
 async def async_setup_entry(  # noqa: D103
     hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback
 ) -> None:
+    _LOGGER.info("ImouCamera.async_setup_entry")
     imou_coordinator = hass.data[DOMAIN][entry.entry_id]
     entities = []
     for device in imou_coordinator.devices:
         if device.channel_id is not None:
             camera_entity = ImouCamera(imou_coordinator, entry,"camera", device)
-            _LOGGER.info(f"translation_key is {camera_entity.translation_key},unique_key is {camera_entity.unique_id}")
+            _LOGGER.debug(f"translation_key is {camera_entity.translation_key},unique_key is {camera_entity.unique_id}")
             entities.append(camera_entity)
     if len(entities) > 0:
         async_add_entities(entities)
