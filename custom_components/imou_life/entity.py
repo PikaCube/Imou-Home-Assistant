@@ -1,4 +1,5 @@
 """An abstract class common to all IMOU entities."""
+import logging
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.helpers.device_registry import DeviceInfo
@@ -7,6 +8,7 @@ from pyimouapi.ha_device import DeviceStatus, ImouHaDevice
 
 from . import ImouDataUpdateCoordinator
 from .const import DOMAIN, PARAM_STATUS
+_LOGGER: logging.Logger = logging.getLogger(__package__)
 
 
 class ImouEntity(CoordinatorEntity):
@@ -47,11 +49,11 @@ class ImouEntity(CoordinatorEntity):
     @property
     def unique_id(self):
         """Return a unique ID to use for this entity."""
-        return (self._device.device_id
-         + "_"
-         + self._device.channel_id if self._device.channel_id is not None else self._device.product_id
-         + "#"
-         + self._entity_type)
+        unique_id =f"{self._device.device_id}_{self._device.channel_id if self._device.channel_id is not None else self._device.product_id}${self._entity_type}"
+        _LOGGER.info(f"device_id is {self._device.device_id}")
+        _LOGGER.info(f"unique_id is {unique_id}")
+        _LOGGER.info(f"_entity_type is {self._entity_type}")
+        return unique_id
 
     @property
     def translation_key(self):
@@ -64,7 +66,3 @@ class ImouEntity(CoordinatorEntity):
         if self._entity_type == PARAM_STATUS:
             return True
         return self._device.sensors[PARAM_STATUS] != DeviceStatus.OFFLINE.value
-
-    @property
-    def name(self) -> str:
-        return self.unique_id+self._entity_type
