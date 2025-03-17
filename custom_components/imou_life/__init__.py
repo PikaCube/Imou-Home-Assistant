@@ -46,7 +46,7 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
                 hass.config_entries.async_forward_entry_unload(entry, platform)
                 for platform in PLATFORMS
             ],
-            async_remove_devices(hass, entry.entry_id),
+            # async_remove_devices(hass, entry.entry_id),
         )
     )
     if unloaded:
@@ -78,3 +78,4 @@ async def async_remove_config_entry_device(
     device_registry_object = dr.async_get(hass)
     device_registry_object.async_remove_device(device_entry.id)
     return True
+
