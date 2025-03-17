@@ -14,7 +14,7 @@ _LOGGER: logging.Logger = logging.getLogger(__package__)
 class ImouEntity(CoordinatorEntity):
     """EntityBaseClass."""
 
-    _attr_has_entity_name = True
+    # _attr_has_entity_name = True
 
     def __init__(
         self,
