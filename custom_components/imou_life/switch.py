@@ -22,8 +22,10 @@ async def async_setup_entry(  # noqa: D103
     entities = []
     for device in imou_coordinator.devices:
         for switch_type in device.switches:
+            _LOGGER.info(f"switch_type is {switch_type}")
             switch_entity = ImouSwitch(imou_coordinator, entry, switch_type, device)
             entities.append(switch_entity)
+            _LOGGER.info(f"name is {switch_entity.name},translation_key is{switch_entity.translation_key}")
     if len(entities) > 0:
         async_add_entities(entities)
 

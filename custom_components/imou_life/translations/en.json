@@ -1,136 +1,135 @@
 {
-  "config": {
-    "step": {
-      "login": {
-        "title": "Login to IMOU Cloud",
-        "data": {
-          "app_id": "AppId",
-          "app_secret": "AppSecret",
-          "api_url": "url"
-        }
-      }
-    },
-    "abort": {
-      "already_configured": "AppId is already configured"
-    },
-    "error": {
-      "appIdOrSecret_invalid": "Invalid appId or appSecret",
-      "connect_failed": "Failed to connect to Imou",
-      "request_failed": "Request failed"
-    }
-  },
-  "options": {
-    "step": {
-      "init": {
-        "data": {
-          "update_interval": "Polling interval (seconds)",
-          "download_snap_wait_time": "Wait before downloading camera snapshot (seconds)",
-          "live_resolution": "Video resolution",
-          "live_protocol": "Video Protocol",
-          "rotation_duration": "The time of each rotation of the gimbal (milliseconds)"
-        }
-      }
-    }
-  },
-  "entity": {
-    "sensor": {
-      "storage_used": {
-        "name": "Storage Used",
-        "unit_of_measurement": "%"
-      },
-      "status": {
-        "name": "Status"
-      },
-      "battery": {
-        "name": "Battery"
-      },
-      "temperature_current": {
-        "name": "Current Temperature"
-      },
-      "humidity_current": {
-        "name": "Current Humidity"
-      }
-    },
-    "select": {
-      "night_vision_mode": {
-        "name": "Night Vision Mode",
-        "options": {
-          "Intelligent": "Intelligent",
-          "FullColor": "FullColor",
-          "Infrared": "Infrared",
-          "Off": "Off",
-          "LowLight": "LowLight",
-          "SmartLowLight": "SmartLowLight"
-        }
-      },
-      "mode": {
-        "name": "Mode",
-        "options": {
-          "0": "HomeMode",
-          "1": "AwayFromHomeMode",
-          "2": "DisarmMode"
-        }
-      },
-      "device_volume": {
-        "name": "Volume",
-        "options": {
-          "-1": "Mute",
-          "0": "LowVolume",
-          "1": "MediumVolume",
-          "2": "HighVolume"
-        }
-      }
-    },
-    "switch": {
-      "motion_detect": {
-        "name": "Motion Detect"
-      },
-      "ab_alarm_sound": {
-        "name": "Abnormal Sound Alarm"
-      },
-      "close_camera": {
-        "name": "Close Camera"
-      },
-      "white_light": {
-        "name": "White Light"
-      },
-      "audio_encode_control": {
-        "name": "Audio Encode Control"
-      },
-      "header_detect": {
-        "name": "Human Detect"
-      },
-      "light": {
-        "name": "Light"
-      },
-      "door_contact_status": {
-        "name": "Door Contact Status"
-      }
-    },
-    "button": {
-      "ptz_up": {
-        "name": "Ptz Up"
-      },
-      "ptz_down": {
-        "name": "Ptz Down"
-      },
-      "ptz_left": {
-        "name": "Ptz Left"
-      },
-      "ptz_right": {
-        "name": "Ptz Right"
-      },
-      "restart_device": {
-        "name": "Restart Device"
-      },
-      "mute": {
-        "name": "Mute"
-      }
-    },
-    "camera": {
-      "camera": {
-        "name": "Camera"
-      }
-    }
-  }
+	"config": {
+		"step": {
+			"login": {
+				"title": "Login to IMOU Cloud",
+				"data": {
+					"app_id": "AppId",
+					"app_secret": "AppSecret",
+					"api_url": "url"
+				}
+			}
+		},
+		"abort": {
+			"already_configured": "AppId is already configured"
+		},
+		"error": {
+			"appIdOrSecret_invalid": "Invalid appId or appSecret",
+			"connect_failed": "Failed to connect to Imou",
+			"request_failed": "Request failed"
+		}
+	},
+	"options": {
+		"step": {
+			"init": {
+				"data": {
+					"update_interval": "Polling interval (seconds)",
+					"download_snap_wait_time": "Wait before downloading camera snapshot (seconds)",
+					"live_resolution": "Video resolution",
+					"live_protocol": "Video Protocol",
+					"rotation_duration": "The time of each rotation of the gimbal (milliseconds)"
+				}
+			}
+		}
+	},
+	"entity": {
+		"sensor": {
+			"storage_used": {
+				"name": "Storage Used"
+			},
+			"status": {
+				"name": "Status"
+			},
+			"battery": {
+				"name": "Battery"
+			},
+			"temperature_current": {
+				"name": "Current Temperature"
+			},
+			"humidity_current": {
+				"name": "Current Humidity"
+			}
+		},
+		"select": {
+			"night_vision_mode": {
+				"name": "Night Vision Mode",
+				"state": {
+					"Intelligent": "Intelligent",
+					"FullColor": "Full Color",
+					"Infrared": "Infrared",
+					"Off": "Off",
+					"LowLight": "Low Light",
+					"SmartLowLight": "Smart Low Light"
+				}
+			},
+			"mode": {
+				"name": "Mode",
+				"state": {
+					"0": "At Home",
+					"1": "Away From Home",
+					"2": "Disarm"
+				}
+			},
+			"device_volume": {
+				"name": "Volume",
+				"state": {
+					"-1": "Mute",
+					"0": "Low",
+					"1": "Medium",
+					"2": "High"
+				}
+			}
+		},
+		"switch": {
+			"motion_detect": {
+				"name": "Motion Detect"
+			},
+			"ab_alarm_sound": {
+				"name": "Abnormal Sound Alarm"
+			},
+			"close_camera": {
+				"name": "Close Camera"
+			},
+			"white_light": {
+				"name": "White Light"
+			},
+			"audio_encode_control": {
+				"name": "Audio Encode Control"
+			},
+			"header_detect": {
+				"name": "Human Detect"
+			},
+			"light": {
+				"name": "Light"
+			},
+			"door_contact_status": {
+				"name": "Door Contact Status"
+			}
+		},
+		"button": {
+			"ptz_up": {
+				"name": "Ptz Up"
+			},
+			"ptz_down": {
+				"name": "Ptz Down"
+			},
+			"ptz_left": {
+				"name": "Ptz Left"
+			},
+			"ptz_right": {
+				"name": "Ptz Right"
+			},
+			"restart_device": {
+				"name": "Restart Device"
+			},
+			"mute": {
+				"name": "Mute"
+			}
+		},
+		"camera": {
+			"camera": {
+				"name": "Camera"
+			}
+		}
+	}
 }
