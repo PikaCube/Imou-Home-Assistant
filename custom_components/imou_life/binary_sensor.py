@@ -1,6 +1,9 @@
 import logging
 
-from homeassistant.components.binary_sensor import BinarySensorEntity, BinarySensorDeviceClass
+from homeassistant.components.binary_sensor import (
+    BinarySensorEntity,
+    BinarySensorDeviceClass,
+)
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
@@ -19,23 +22,26 @@ async def async_setup_entry(
     entities = []
     for device in imou_coordinator.devices:
         for binary_sensor_type in device.binary_sensors:
-            binary_sensor_entity = ImouBinarySensor(imou_coordinator, entry, binary_sensor_type, device)
-            _LOGGER.debug(f"translation_key is {binary_sensor_entity.translation_key},unique_key is {binary_sensor_entity.unique_id}")
+            binary_sensor_entity = ImouBinarySensor(
+                imou_coordinator, entry, binary_sensor_type, device
+            )
+            _LOGGER.debug(
+                f"translation_key is {binary_sensor_entity.translation_key},unique_key is {binary_sensor_entity.unique_id}"
+            )
             entities.append(binary_sensor_entity)
     if len(entities) > 0:
         async_add_entities(entities)
 
 
-class ImouBinarySensor(ImouEntity,BinarySensorEntity):
+class ImouBinarySensor(ImouEntity, BinarySensorEntity):
     """imou sensor."""
 
     @property
-    def is_on(self)->bool|None:
+    def is_on(self) -> bool | None:
         return self._device.binary_sensors[self._entity_type]
 
-
     @property
-    def device_class(self)->BinarySensorDeviceClass|None:
+    def device_class(self) -> BinarySensorDeviceClass | None:
         match self._entity_type:
             case "door_contact_status":
                 return BinarySensorDeviceClass.DOOR

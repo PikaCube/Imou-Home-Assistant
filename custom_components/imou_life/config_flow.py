@@ -1,4 +1,5 @@
 """config flow for Imou."""
+
 import logging
 from typing import Any
 
@@ -16,11 +17,21 @@ from .const import (
     DOMAIN,
     PARAM_API_URL,
     PARAM_APP_ID,
-    PARAM_APP_SECRET, CONF_API_URL_HZ, PARAM_UPDATE_INTERVAL, PARAM_DOWNLOAD_SNAP_WAIT_TIME, PARAM_LIVE_RESOLUTION,
-    CONF_HD, CONF_SD, PARAM_ROTATION_DURATION, CONF_HTTPS, CONF_HTTP, PARAM_LIVE_PROTOCOL,
+    PARAM_APP_SECRET,
+    CONF_API_URL_HZ,
+    PARAM_UPDATE_INTERVAL,
+    PARAM_DOWNLOAD_SNAP_WAIT_TIME,
+    PARAM_LIVE_RESOLUTION,
+    CONF_HD,
+    CONF_SD,
+    PARAM_ROTATION_DURATION,
+    CONF_HTTPS,
+    CONF_HTTP,
+    PARAM_LIVE_PROTOCOL,
 )
 
 _LOGGER: logging.Logger = logging.getLogger(__package__)
+
 
 class ImouConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     """Config flow for imou."""
@@ -46,7 +57,12 @@ class ImouConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                         vol.Required(PARAM_APP_ID): str,
                         vol.Required(PARAM_APP_SECRET): str,
                         vol.Required(PARAM_API_URL, default=CONF_API_URL_SG): vol.In(
-                            [CONF_API_URL_SG, CONF_API_URL_OR, CONF_API_URL_FK,CONF_API_URL_HZ]
+                            [
+                                CONF_API_URL_SG,
+                                CONF_API_URL_OR,
+                                CONF_API_URL_FK,
+                                CONF_API_URL_HZ,
+                            ]
                         ),
                     }
                 ),
@@ -81,17 +97,24 @@ class ImouConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                         vol.Required(PARAM_APP_ID): str,
                         vol.Required(PARAM_APP_SECRET): str,
                         vol.Required(PARAM_API_URL, default=CONF_API_URL_SG): vol.In(
-                            [CONF_API_URL_SG, CONF_API_URL_OR, CONF_API_URL_FK, CONF_API_URL_HZ]
+                            [
+                                CONF_API_URL_SG,
+                                CONF_API_URL_OR,
+                                CONF_API_URL_FK,
+                                CONF_API_URL_HZ,
+                            ]
                         ),
                     }
                 ),
                 errors=errors,
             )
+
     @staticmethod
     @callback
     def async_get_options_flow(config_entry: config_entries.ConfigEntry) -> OptionsFlow:
         """Get the options flow for this handler."""
         return ImouOptionsFlow()
+
 
 class ImouOptionsFlow(config_entries.OptionsFlow):
     async def async_step_init(self, user_input=None):
@@ -103,14 +126,17 @@ class ImouOptionsFlow(config_entries.OptionsFlow):
             data_schema=self.add_suggested_values_to_schema(
                 vol.Schema(
                     {
-                        vol.Required(PARAM_UPDATE_INTERVAL, default= 60): int,
-                        vol.Required(PARAM_DOWNLOAD_SNAP_WAIT_TIME, default=3):int,
+                        vol.Required(PARAM_UPDATE_INTERVAL, default=60): int,
+                        vol.Required(PARAM_DOWNLOAD_SNAP_WAIT_TIME, default=3): int,
                         vol.Required(PARAM_LIVE_RESOLUTION, default=CONF_HD): vol.In(
-                            [CONF_HD, CONF_SD]),
+                            [CONF_HD, CONF_SD]
+                        ),
                         vol.Required(PARAM_LIVE_PROTOCOL, default=CONF_HTTPS): vol.In(
-                            [CONF_HTTPS, CONF_HTTP]),
+                            [CONF_HTTPS, CONF_HTTP]
+                        ),
                         vol.Required(PARAM_ROTATION_DURATION, default=500): int,
                     }
-                ), self.config_entry.options
+                ),
+                self.config_entry.options,
             ),
         )

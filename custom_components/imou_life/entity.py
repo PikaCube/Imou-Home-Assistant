@@ -1,4 +1,5 @@
 """An abstract class common to all IMOU entities."""
+
 import logging
 
 from homeassistant.config_entries import ConfigEntry
@@ -8,6 +9,7 @@ from pyimouapi.ha_device import DeviceStatus, ImouHaDevice
 
 from . import ImouDataUpdateCoordinator
 from .const import DOMAIN, PARAM_STATUS
+
 _LOGGER: logging.Logger = logging.getLogger(__package__)
 
 
@@ -37,19 +39,26 @@ class ImouEntity(CoordinatorEntity):
         return DeviceInfo(
             identifiers={
                 # The combination of DeviceId and ChannelId uniquely identifies the device
-                (DOMAIN, self._device.device_id + "_" + self._device.channel_id if self._device.channel_id is not None else self._device.product_id)
+                (
+                    DOMAIN,
+                    self._device.device_id + "_" + self._device.channel_id
+                    if self._device.channel_id is not None
+                    else self._device.product_id,
+                )
             },
-            name=self._device.channel_name if self._device.channel_name is not None else self._device.device_name,
+            name=self._device.channel_name
+            if self._device.channel_name is not None
+            else self._device.device_name,
             manufacturer=self._device.manufacturer,
             model=self._device.model,
             sw_version=self._device.swversion,
-            serial_number=self._device.device_id
+            serial_number=self._device.device_id,
         )
 
     @property
     def unique_id(self):
         """Return a unique ID to use for this entity."""
-        unique_id =f"{self._device.device_id}_{self._device.channel_id if self._device.channel_id is not None else self._device.product_id}${self._entity_type}"
+        unique_id = f"{self._device.device_id}_{self._device.channel_id if self._device.channel_id is not None else self._device.product_id}${self._entity_type}"
         _LOGGER.debug(f"device_id is {self._device.device_id}")
         _LOGGER.debug(f"unique_id is {unique_id}")
         _LOGGER.debug(f"_entity_type is {self._entity_type}")

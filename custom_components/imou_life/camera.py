@@ -12,8 +12,15 @@ from pyimouapi.exceptions import ImouException
 from pyimouapi.ha_device import ImouHaDevice
 
 from . import ImouDataUpdateCoordinator
-from .const import DOMAIN, PARAM_MOTION_DETECT, PARAM_STORAGE_USED, PARAM_LIVE_RESOLUTION, PARAM_LIVE_PROTOCOL, \
-    PARAM_DOWNLOAD_SNAP_WAIT_TIME, PARAM_HEADER_DETECT
+from .const import (
+    DOMAIN,
+    PARAM_MOTION_DETECT,
+    PARAM_STORAGE_USED,
+    PARAM_LIVE_RESOLUTION,
+    PARAM_LIVE_PROTOCOL,
+    PARAM_DOWNLOAD_SNAP_WAIT_TIME,
+    PARAM_HEADER_DETECT,
+)
 from .entity import ImouEntity
 
 _LOGGER: logging.Logger = logging.getLogger(__package__)
@@ -27,8 +34,10 @@ async def async_setup_entry(  # noqa: D103
     entities = []
     for device in imou_coordinator.devices:
         if device.channel_id is not None:
-            camera_entity = ImouCamera(imou_coordinator, entry,"camera", device)
-            _LOGGER.debug(f"translation_key is {camera_entity.translation_key},unique_key is {camera_entity.unique_id}")
+            camera_entity = ImouCamera(imou_coordinator, entry, "camera", device)
+            _LOGGER.debug(
+                f"translation_key is {camera_entity.translation_key},unique_key is {camera_entity.unique_id}"
+            )
             entities.append(camera_entity)
     if len(entities) > 0:
         async_add_entities(entities)
@@ -39,7 +48,13 @@ class ImouCamera(ImouEntity, Camera):
 
     _attr_supported_features = CameraEntityFeature.STREAM
 
-    def __init__(self, coordinator: ImouDataUpdateCoordinator, config_entry: ConfigEntry, entity_type: str,device: ImouHaDevice):
+    def __init__(
+        self,
+        coordinator: ImouDataUpdateCoordinator,
+        config_entry: ConfigEntry,
+        entity_type: str,
+        device: ImouHaDevice,
+    ):
         Camera.__init__(self)
         ImouEntity.__init__(self, coordinator, config_entry, entity_type, device)
 
@@ -47,7 +62,9 @@ class ImouCamera(ImouEntity, Camera):
         """GET STREAMING ADDRESS."""
         try:
             return await self.coordinator.device_manager.async_get_device_stream(
-                self._device,self.config_entry.options.get(PARAM_LIVE_RESOLUTION,"SD"),self.config_entry.options.get(PARAM_LIVE_PROTOCOL,"https"),
+                self._device,
+                self.config_entry.options.get(PARAM_LIVE_RESOLUTION, "SD"),
+                self.config_entry.options.get(PARAM_LIVE_PROTOCOL, "https"),
             )
         except ImouException as e:
             raise HomeAssistantError(e.message)  # noqa: B904
@@ -58,7 +75,8 @@ class ImouCamera(ImouEntity, Camera):
         """Return bytes of camera image."""
         try:
             return await self.coordinator.device_manager.async_get_device_image(
-                self._device,self.config_entry.options.get(PARAM_DOWNLOAD_SNAP_WAIT_TIME,3)
+                self._device,
+                self.config_entry.options.get(PARAM_DOWNLOAD_SNAP_WAIT_TIME, 3),
             )
         except ImouException as e:
             raise HomeAssistantError(e.message)  # noqa: B904
@@ -66,13 +84,16 @@ class ImouCamera(ImouEntity, Camera):
     @property
     def is_recording(self) -> bool:
         """The battery level is normal and the motion detect is activated, indicating that it is in  recording mode."""
-        return (
-                self.is_strict_number(self._device.sensors[PARAM_STORAGE_USED] if PARAM_STORAGE_USED in self._device.sensors else "")
-                and (
-                    self._device.switches[PARAM_HEADER_DETECT] if PARAM_HEADER_DETECT in self._device.switches else False
-                    or
-                    self._device.switches[PARAM_MOTION_DETECT] if PARAM_MOTION_DETECT in self._device.switches else False
-                )
+        return self.is_strict_number(
+            self._device.sensors[PARAM_STORAGE_USED]
+            if PARAM_STORAGE_USED in self._device.sensors
+            else ""
+        ) and (
+            self._device.switches[PARAM_HEADER_DETECT]
+            if PARAM_HEADER_DETECT in self._device.switches
+            else False or self._device.switches[PARAM_MOTION_DETECT]
+            if PARAM_MOTION_DETECT in self._device.switches
+            else False
         )
 
     @property
@@ -84,9 +105,13 @@ class ImouCamera(ImouEntity, Camera):
     @property
     def motion_detection_enabled(self) -> bool:
         """Camera Motion Detection Status."""
-        return (self._device.switches[PARAM_MOTION_DETECT] if PARAM_MOTION_DETECT in self._device.switches else False
-                or
-                self._device.switches[PARAM_HEADER_DETECT] if PARAM_HEADER_DETECT in self._device.switches else False)
+        return (
+            self._device.switches[PARAM_MOTION_DETECT]
+            if PARAM_MOTION_DETECT in self._device.switches
+            else False or self._device.switches[PARAM_HEADER_DETECT]
+            if PARAM_HEADER_DETECT in self._device.switches
+            else False
+        )
 
     @staticmethod
     def is_strict_number(s):

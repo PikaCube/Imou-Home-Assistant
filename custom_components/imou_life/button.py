@@ -1,4 +1,5 @@
 """Support for Imou button controls."""
+
 import logging
 
 from homeassistant.components.button import ButtonDeviceClass, ButtonEntity
@@ -24,7 +25,9 @@ async def async_setup_entry(
     for device in imou_coordinator.devices:
         for button_type in device.buttons:
             button_entity = ImouButton(imou_coordinator, entry, button_type, device)
-            _LOGGER.debug(f"translation_key is {button_entity.translation_key},unique_key is {button_entity.unique_id}")
+            _LOGGER.debug(
+                f"translation_key is {button_entity.translation_key},unique_key is {button_entity.unique_id}"
+            )
             entities.append(button_entity)
     if len(entities) > 0:
         async_add_entities(entities)
@@ -37,13 +40,15 @@ class ImouButton(ImouEntity, ButtonEntity):
         """Handle button press."""
         try:
             await self.coordinator.device_manager.async_press_button(
-                self._device,self._entity_type,self.config_entry.options.get(PARAM_ROTATION_DURATION,500)
+                self._device,
+                self._entity_type,
+                self.config_entry.options.get(PARAM_ROTATION_DURATION, 500),
             )
         except ImouException as e:
             raise HomeAssistantError(e.message)  # noqa: B904
 
     @property
-    def device_class(self)->ButtonDeviceClass|None:
+    def device_class(self) -> ButtonDeviceClass | None:
         if self._entity_type == PARAM_RESTART_DEVICE:
             return ButtonDeviceClass.RESTART
         return None
