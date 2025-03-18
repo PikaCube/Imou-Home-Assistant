@@ -10,6 +10,7 @@ from pyimouapi.exceptions import ImouException
 
 from .const import DOMAIN, PARAM_RESTART_DEVICE, PARAM_ROTATION_DURATION
 from .entity import ImouEntity
+
 _LOGGER: logging.Logger = logging.getLogger(__package__)
 
 
@@ -42,7 +43,7 @@ class ImouButton(ImouEntity, ButtonEntity):
             raise HomeAssistantError(e.message)  # noqa: B904
 
     @property
-    def device_class(self):
+    def device_class(self)->ButtonDeviceClass|None:
         if self._entity_type == PARAM_RESTART_DEVICE:
             return ButtonDeviceClass.RESTART
         return None
