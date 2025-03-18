@@ -16,7 +16,6 @@ CONF_HTTP = "http"
 CONF_HTTPS = "https"
 
 
-
 # parameters:
 PARAM_API_URL = "api_url"
 PARAM_APP_ID = "app_id"
@@ -31,8 +30,13 @@ PARAM_RESTART_DEVICE = "restart_device"
 PARAM_UPDATE_INTERVAL = "update_interval"
 PARAM_DOWNLOAD_SNAP_WAIT_TIME = "download_snap_wait_time"
 PARAM_LIVE_RESOLUTION = "live_resolution"
-PARAM_LIVE_PROTOCOL  = "live_protocol"
+PARAM_LIVE_PROTOCOL = "live_protocol"
 PARAM_ROTATION_DURATION = "rotation_duration"
+PARAM_ENTITY_ID = "entity_id"
+
+# service
+SERVICE_RESTART_DEVICE = "restart_device"
+SERVICE_CONTROL_MOVE_PTZ = "control_move_ptz"
 
 
 PLATFORMS = ["select", "sensor", "switch", "camera", "button", "binary_sensor"]

@@ -20,13 +20,15 @@ async def async_setup_entry(
     for device in imou_coordinator.devices:
         for sensor_type in device.sensors:
             sensor_entity = ImouSensor(imou_coordinator, entry, sensor_type, device)
-            _LOGGER.debug(f"translation_key is {sensor_entity.translation_key},unique_key is {sensor_entity.unique_id}")
+            _LOGGER.debug(
+                f"translation_key is {sensor_entity.translation_key},unique_key is {sensor_entity.unique_id}"
+            )
             entities.append(sensor_entity)
     if len(entities) > 0:
         async_add_entities(entities)
 
 
-class ImouSensor(ImouEntity,SensorEntity):
+class ImouSensor(ImouEntity, SensorEntity):
     """imou sensor."""
 
     @property
@@ -34,7 +36,7 @@ class ImouSensor(ImouEntity,SensorEntity):
         return self._device.sensors[self._entity_type]
 
     @property
-    def native_unit_of_measurement(self)->str|None:
+    def native_unit_of_measurement(self) -> str | None:
         match self._entity_type:
             case "battery":
                 return "%"
@@ -48,7 +50,7 @@ class ImouSensor(ImouEntity,SensorEntity):
                 return None
 
     @property
-    def device_class(self)->SensorDeviceClass|None:
+    def device_class(self) -> SensorDeviceClass | None:
         match self._entity_type:
             case "battery":
                 return SensorDeviceClass.BATTERY

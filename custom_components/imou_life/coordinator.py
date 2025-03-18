@@ -15,7 +15,10 @@ class ImouDataUpdateCoordinator(DataUpdateCoordinator):
     """DATA UPDATE COORDINATOR."""
 
     def __init__(
-        self, hass: HomeAssistant, device_manager: ImouHaDeviceManager, update_interval: int
+        self,
+        hass: HomeAssistant,
+        device_manager: ImouHaDeviceManager,
+        update_interval: int,
     ) -> None:
         """Init ImouDataUpdateCoordinator."""
         _LOGGER.info("ImouDataUpdateCoordinator init")
