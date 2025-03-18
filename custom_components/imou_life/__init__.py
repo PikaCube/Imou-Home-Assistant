@@ -24,7 +24,7 @@ from .const import (
     PLATFORMS,
     PARAM_UPDATE_INTERVAL,
     SERVICE_CONTROL_MOVE_PTZ,
-    PARAM_ENTITY_ID,
+    PARAM_ENTITY_ID, PARAM_PTZ,
 )
 from .coordinator import ImouDataUpdateCoordinator
 
@@ -124,7 +124,7 @@ async def _async_handle_control_move_ptz(call):
     imou_coordinator = hass.data[DOMAIN][registry_entry.config_entry_id]
     device_id = unique_id.split("_")[0]
     channel_id = unique_id.split("_")[1]
-    if re.match(r"\d+", channel_id) is None:
+    if re.match(r"\d+", channel_id) is None or PARAM_PTZ not in unique_id:
         raise HomeAssistantError(
             f"Invalid channel id {channel_id},device is not a camera"
         )

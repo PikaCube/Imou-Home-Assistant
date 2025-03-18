@@ -33,6 +33,7 @@ PARAM_LIVE_RESOLUTION = "live_resolution"
 PARAM_LIVE_PROTOCOL = "live_protocol"
 PARAM_ROTATION_DURATION = "rotation_duration"
 PARAM_ENTITY_ID = "entity_id"
+PARAM_PTZ = "ptz"
 
 # service
 SERVICE_RESTART_DEVICE = "restart_device"
