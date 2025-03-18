@@ -35,4 +35,4 @@ PARAM_LIVE_PROTOCOL  = "live_protocol"
 PARAM_ROTATION_DURATION = "rotation_duration"
 
 
-PLATFORMS = ["select", "sensor", "switch", "camera", "button"]
+PLATFORMS = ["select", "sensor", "switch", "camera", "button", "binary_sensor"]

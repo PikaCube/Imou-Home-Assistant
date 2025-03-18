@@ -34,7 +34,7 @@ class ImouSensor(ImouEntity,SensorEntity):
         return self._device.sensors[self._entity_type]
 
     @property
-    def native_unit_of_measurement(self):
+    def native_unit_of_measurement(self)->str|None:
         match self._entity_type:
             case "battery":
                 return "%"
@@ -48,7 +48,7 @@ class ImouSensor(ImouEntity,SensorEntity):
                 return None
 
     @property
-    def device_class(self):
+    def device_class(self)->SensorDeviceClass|None:
         match self._entity_type:
             case "battery":
                 return SensorDeviceClass.BATTERY

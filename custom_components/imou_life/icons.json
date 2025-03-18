@@ -17,7 +17,7 @@
 					"upgrading": "mdi:cloud-arrow-up"
 				}
 			},
-			"power": {
+			"battery": {
 				"default": "mdi:battery"
 			},
 			"temperature_current": {
@@ -56,20 +56,23 @@
 			},
 			"header_detect": {
 				"default": "mdi:run"
+			},
+			"light": {
+				"default": "mdi:lightbulb-on"
 			}
 		},
 		"button": {
 			"ptz_up": {
-				"default": "mdi:cursor-move"
+				"default": "mdi:arrow-up-bold"
 			},
 			"ptz_down": {
-				"default": "mdi:cursor-move"
+				"default": "mdi:arrow-down-bold"
 			},
 			"ptz_left": {
-				"default": "mdi:cursor-move"
+				"default": "mdi:arrow-left-bold"
 			},
 			"ptz_right": {
-				"default": "mdi:cursor-move"
+				"default": "mdi:arrow-right-bold"
 			},
 			"restart_device": {
 				"default": "mdi:restart"
@@ -78,6 +81,11 @@
 		"camera": {
 			"camera": {
 				"default": "mdi:video"
+			}
+		},
+		"binary_sensor": {
+			"door_contact_status": {
+				"default": "mdi:door"
 			}
 		}
 	}

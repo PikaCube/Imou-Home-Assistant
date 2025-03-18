@@ -101,9 +101,6 @@
 			},
 			"light": {
 				"name": "Light"
-			},
-			"door_contact_status": {
-				"name": "Door Contact Status"
 			}
 		},
 		"button": {
@@ -129,6 +126,11 @@
 		"camera": {
 			"camera": {
 				"name": "Camera"
+			}
+		},
+		"binary_sensor": {
+			"door_contact_status": {
+				"name": "Door Contact Status"
 			}
 		}
 	}
