@@ -34,10 +34,14 @@ PARAM_LIVE_PROTOCOL = "live_protocol"
 PARAM_ROTATION_DURATION = "rotation_duration"
 PARAM_ENTITY_ID = "entity_id"
 PARAM_PTZ = "ptz"
+PARAM_OPTION = "option"
 
 # service
 SERVICE_RESTART_DEVICE = "restart_device"
 SERVICE_CONTROL_MOVE_PTZ = "control_move_ptz"
+SERVICE_TURN_ON = "turn_on"
+SERVICE_TURN_OFF = "turn_off"
+SERVICE_SELECT = "select"
 
 
 PLATFORMS = ["select", "sensor", "switch", "camera", "button", "binary_sensor"]

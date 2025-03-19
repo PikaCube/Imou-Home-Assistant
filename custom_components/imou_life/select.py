@@ -6,8 +6,17 @@ from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import HomeAssistantError
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from pyimouapi.exceptions import ImouException
+from homeassistant.helpers import config_validation as cv, entity_platform
+import voluptuous as vol
 
-from .const import DOMAIN, PARAM_CURRENT_OPTION, PARAM_OPTIONS
+from .const import (
+    DOMAIN,
+    PARAM_CURRENT_OPTION,
+    PARAM_OPTIONS,
+    PARAM_ENTITY_ID,
+    SERVICE_SELECT,
+    PARAM_OPTION,
+)
 from .entity import ImouEntity
 
 _LOGGER: logging.Logger = logging.getLogger(__package__)
@@ -28,6 +37,16 @@ async def async_setup_entry(  # noqa: D103
             entities.append(select_entity)
     if len(entities) > 0:
         async_add_entities(entities)
+
+    platform = entity_platform.async_get_current_platform()
+    platform.async_register_entity_service(
+        SERVICE_SELECT,
+        {
+            vol.Required(PARAM_ENTITY_ID): cv.entity_id,
+            vol.Required(PARAM_OPTION): cv.positive_int,
+        },
+        "async_select_option",
+    )
 
 
 class ImouSelect(ImouEntity, SelectEntity):
