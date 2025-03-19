@@ -104,11 +104,13 @@ async def async_remove_config_entry_device(
     return True
 
 
-SERVICE_SCHEMA_CONTROL_MOVE_PTZ = {
-    vol.Required(PARAM_ENTITY_ID): cv.string,
-    vol.Required(PARAM_DURATION): cv.positive_int,
-    vol.Required(PARAM_OPERATION): cv.positive_int,
-}
+SERVICE_SCHEMA_CONTROL_MOVE_PTZ = vol.Schema(
+    {
+        vol.Required(PARAM_ENTITY_ID): cv.string,
+        vol.Required(PARAM_DURATION): cv.positive_int,
+        vol.Required(PARAM_OPERATION): cv.positive_int,
+    }
+)
 
 
 async def _async_handle_control_move_ptz(call):
