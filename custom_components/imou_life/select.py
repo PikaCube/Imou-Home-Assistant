@@ -43,7 +43,7 @@ async def async_setup_entry(  # noqa: D103
         SERVICE_SELECT,
         {
             vol.Required(PARAM_ENTITY_ID): cv.entity_id,
-            vol.Required(PARAM_OPTION): cv.positive_int,
+            vol.Required(PARAM_OPTION): cv.string,
         },
         "async_select_option",
     )
