@@ -17,11 +17,6 @@ from .entity import ImouEntity
 
 _LOGGER: logging.Logger = logging.getLogger(__package__)
 
-SERVICE_SCHEMA_CONTROL_MOVE_PTZ = vol.Schema(
-    {
-        vol.Required(PARAM_DURATION): cv.positive_int
-    }
-)
 
 async def async_setup_entry(
     hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback
@@ -43,7 +38,9 @@ async def async_setup_entry(
 
     platform.async_register_entity_service(
         SERVICE_CONTROL_MOVE_PTZ,
-        SERVICE_SCHEMA_CONTROL_MOVE_PTZ,
+        {
+            vol.Required(PARAM_DURATION): cv.positive_int
+        },
         "async_handle_control_move_ptz",
     )
 
