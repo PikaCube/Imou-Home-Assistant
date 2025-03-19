@@ -12,7 +12,8 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from pyimouapi.const import PARAM_DURATION
 from pyimouapi.exceptions import ImouException
 
-from .const import DOMAIN, PARAM_RESTART_DEVICE, PARAM_ROTATION_DURATION, SERVICE_CONTROL_MOVE_PTZ, PARAM_PTZ
+from .const import DOMAIN, PARAM_RESTART_DEVICE, PARAM_ROTATION_DURATION, SERVICE_CONTROL_MOVE_PTZ, PARAM_PTZ, \
+    PARAM_ENTITY_ID
 from .entity import ImouEntity
 
 _LOGGER: logging.Logger = logging.getLogger(__package__)
@@ -39,6 +40,7 @@ async def async_setup_entry(
     platform.async_register_entity_service(
         SERVICE_CONTROL_MOVE_PTZ,
         {
+            vol.Required(PARAM_ENTITY_ID): cv.entity_id,
             vol.Required(PARAM_DURATION): cv.positive_int
         },
         "async_handle_control_move_ptz",
