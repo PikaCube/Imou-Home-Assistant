@@ -86,7 +86,7 @@ class ImouButton(ImouEntity, ButtonEntity):
             )
         await self._async_do_press(duration)
 
-    async def async_handle_restart_device(self, duration: int):
+    async def async_handle_restart_device(self):
         _LOGGER.debug(f"async_handle_restart_device,entity_type is{self._entity_type}")
         if PARAM_RESTART_DEVICE != self._entity_type:
             raise HomeAssistantError(
