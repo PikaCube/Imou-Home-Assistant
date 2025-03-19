@@ -36,7 +36,7 @@ class ImouSwitch(ImouEntity, SwitchEntity):
 
     async def async_turn_on(self, **kwargs: Any) -> None:  # noqa: D102
         try:
-            await self.coordinator.device_manager.async_switch_operation(
+            await self._coordinator.device_manager.async_switch_operation(
                 self._device, self._entity_type, True
             )
             self.async_write_ha_state()
@@ -45,7 +45,7 @@ class ImouSwitch(ImouEntity, SwitchEntity):
 
     async def async_turn_off(self, **kwargs: Any) -> None:  # noqa: D102
         try:
-            await self.coordinator.device_manager.async_switch_operation(
+            await self._coordinator.device_manager.async_switch_operation(
                 self._device, self._entity_type, False
             )
             self.async_write_ha_state()

@@ -4,15 +4,10 @@ control_move_ptz:
       required: true
       example: "camera.imou_living_room"
       selector:
-        text: {}
-      operation:
-        required: true
-        example: 0
-        default: 1
         selector:
-          number:
-            min: 0
-            max: 3
+          entity:
+            integration: imou_life
+            domain: button
       duration:
         required: true
         example: 500

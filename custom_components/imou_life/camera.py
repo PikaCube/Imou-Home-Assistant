@@ -61,10 +61,10 @@ class ImouCamera(ImouEntity, Camera):
     async def stream_source(self) -> str | None:
         """GET STREAMING ADDRESS."""
         try:
-            return await self.coordinator.device_manager.async_get_device_stream(
+            return await self._coordinator.device_manager.async_get_device_stream(
                 self._device,
-                self.config_entry.options.get(PARAM_LIVE_RESOLUTION, "SD"),
-                self.config_entry.options.get(PARAM_LIVE_PROTOCOL, "https"),
+                self._config_entry.options.get(PARAM_LIVE_RESOLUTION, "SD"),
+                self._config_entry.options.get(PARAM_LIVE_PROTOCOL, "https"),
             )
         except ImouException as e:
             raise HomeAssistantError(e.message)  # noqa: B904
@@ -74,9 +74,9 @@ class ImouCamera(ImouEntity, Camera):
     ) -> bytes | None:
         """Return bytes of camera image."""
         try:
-            return await self.coordinator.device_manager.async_get_device_image(
+            return await self._coordinator.device_manager.async_get_device_image(
                 self._device,
-                self.config_entry.options.get(PARAM_DOWNLOAD_SNAP_WAIT_TIME, 3),
+                self._config_entry.options.get(PARAM_DOWNLOAD_SNAP_WAIT_TIME, 3),
             )
         except ImouException as e:
             raise HomeAssistantError(e.message)  # noqa: B904
