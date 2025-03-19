@@ -6,6 +6,7 @@ import re
 
 import voluptuous as vol
 from homeassistant.config_entries import ConfigEntry
+import homeassistant.helpers.entity_registry as er
 from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import HomeAssistantError
 from homeassistant.helpers import config_validation as cv
@@ -119,8 +120,8 @@ async def _async_handle_control_move_ptz(call):
     entity_id = call.data[PARAM_ENTITY_ID]
     operation = call.data[PARAM_OPERATION]
     duration = call.data[PARAM_DURATION]
-    registry = await hass.helpers.entity_registry.async_get_registry(hass)
-    registry_entry = registry.async_get(entity_id)
+    registry = await er.async_get(hass)
+    registry_entry = await registry.async_get(entity_id)
     if not registry_entry:
         raise HomeAssistantError(f"Entity {entity_id} not found")
     unique_id = registry_entry.unique_id
