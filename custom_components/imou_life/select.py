@@ -43,7 +43,7 @@ class ImouSelect(ImouEntity, SelectEntity):
 
     async def async_select_option(self, option: str) -> None:  # noqa: D102
         try:
-            await self.coordinator.device_manager.async_select_option(
+            await self._coordinator.device_manager.async_select_option(
                 self._device, self._entity_type, option
             )
             self._device.selects[self._entity_type][PARAM_CURRENT_OPTION] = option

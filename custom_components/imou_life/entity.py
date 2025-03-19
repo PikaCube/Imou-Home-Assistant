@@ -27,11 +27,10 @@ class ImouEntity(CoordinatorEntity):
     ) -> None:
         """Init ImouEntity."""
         super().__init__(coordinator)
-        self.coordinator = coordinator
-        self.config_entry = config_entry
+        self._coordinator = coordinator
+        self._config_entry = config_entry
         self._entity_type = entity_type
         self._device = device
-        self.entity_available = None
 
     @property
     def device_info(self) -> DeviceInfo:

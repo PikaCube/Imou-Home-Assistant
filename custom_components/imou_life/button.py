@@ -2,18 +2,26 @@
 
 import logging
 
+import voluptuous as vol
 from homeassistant.components.button import ButtonDeviceClass, ButtonEntity
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import HomeAssistantError
+from homeassistant.helpers import config_validation as cv, entity_platform
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
+from pyimouapi.const import PARAM_DURATION
 from pyimouapi.exceptions import ImouException
 
-from .const import DOMAIN, PARAM_RESTART_DEVICE, PARAM_ROTATION_DURATION
+from .const import DOMAIN, PARAM_RESTART_DEVICE, PARAM_ROTATION_DURATION, SERVICE_CONTROL_MOVE_PTZ, PARAM_PTZ
 from .entity import ImouEntity
 
 _LOGGER: logging.Logger = logging.getLogger(__package__)
 
+SERVICE_SCHEMA_CONTROL_MOVE_PTZ = vol.Schema(
+    {
+        vol.Required(PARAM_DURATION): cv.positive_int
+    }
+)
 
 async def async_setup_entry(
     hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback
@@ -31,6 +39,14 @@ async def async_setup_entry(
             entities.append(button_entity)
     if len(entities) > 0:
         async_add_entities(entities)
+    platform = entity_platform.async_get_current_platform()
+
+    # This will call Entity.set_sleep_timer(sleep_time=VALUE)
+    platform.async_register_entity_service(
+        SERVICE_CONTROL_MOVE_PTZ,
+        SERVICE_SCHEMA_CONTROL_MOVE_PTZ,
+        "async_handle_control_move_ptz",
+    )
 
 
 class ImouButton(ImouEntity, ButtonEntity):
@@ -39,10 +55,10 @@ class ImouButton(ImouEntity, ButtonEntity):
     async def async_press(self) -> None:
         """Handle button press."""
         try:
-            await self.coordinator.device_manager.async_press_button(
+            await self._coordinator.device_manager.async_press_button(
                 self._device,
                 self._entity_type,
-                self.config_entry.options.get(PARAM_ROTATION_DURATION, 500),
+                self._config_entry.options.get(PARAM_ROTATION_DURATION, 500),
             )
         except ImouException as e:
             raise HomeAssistantError(e.message)  # noqa: B904
@@ -52,3 +68,19 @@ class ImouButton(ImouEntity, ButtonEntity):
         if self._entity_type == PARAM_RESTART_DEVICE:
             return ButtonDeviceClass.RESTART
         return None
+
+    async def async_handle_control_move_ptz(self, call):
+        duration = call.data[PARAM_DURATION]
+        if  PARAM_PTZ not in self._entity_type:
+            raise HomeAssistantError(
+                f"Invalid entity type {self._entity_type},it must be ptz button"
+            )
+        try:
+            await self._coordinator.device_manager.async_press_button(
+                self._device,
+                self._entity_type,
+                duration,
+            )
+        except ImouException as e:
+            raise HomeAssistantError(e.message)  # noqa: B904
+
