@@ -24,7 +24,8 @@ from .const import (
     PLATFORMS,
     PARAM_UPDATE_INTERVAL,
     SERVICE_CONTROL_MOVE_PTZ,
-    PARAM_ENTITY_ID, PARAM_PTZ,
+    PARAM_ENTITY_ID,
+    PARAM_PTZ,
 )
 from .coordinator import ImouDataUpdateCoordinator
 
@@ -52,9 +53,9 @@ async def async_setup_entry(hass: HomeAssistant, config: ConfigEntry) -> bool:
     config.add_update_listener(async_reload_entry)
     """register service"""
     hass.services.async_register(
-        DOMAIN,
-        SERVICE_CONTROL_MOVE_PTZ,
-        _async_handle_control_move_ptz,
+        domain=DOMAIN,
+        service=SERVICE_CONTROL_MOVE_PTZ,
+        service_func=_async_handle_control_move_ptz,
         schema=SERVICE_SCHEMA_CONTROL_MOVE_PTZ,
     )
     return True
