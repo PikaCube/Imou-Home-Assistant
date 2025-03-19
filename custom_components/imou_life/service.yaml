@@ -1,19 +1,15 @@
 control_move_ptz:
+  target:
+    entity:
+      integration: imou_life
+      domain: button
   fields:
-    entity_id:
+    duration:
       required: true
-      example: "camera.imou_living_room"
+      example: 500
+      default: 500
       selector:
-        selector:
-          entity:
-            integration: imou_life
-            domain: button
-      duration:
-        required: true
-        example: 500
-        default: 500
-        selector:
-          number:
-            min: 100
-            max: 5000
-            unit_of_measurement: "ms"
+        number:
+          min: 100
+          max: 5000
+          unit_of_measurement: "ms"

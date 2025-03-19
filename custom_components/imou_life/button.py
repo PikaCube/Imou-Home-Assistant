@@ -41,7 +41,6 @@ async def async_setup_entry(
         async_add_entities(entities)
     platform = entity_platform.async_get_current_platform()
 
-    # This will call Entity.set_sleep_timer(sleep_time=VALUE)
     platform.async_register_entity_service(
         SERVICE_CONTROL_MOVE_PTZ,
         SERVICE_SCHEMA_CONTROL_MOVE_PTZ,
@@ -69,8 +68,8 @@ class ImouButton(ImouEntity, ButtonEntity):
             return ButtonDeviceClass.RESTART
         return None
 
-    async def async_handle_control_move_ptz(self, call):
-        duration = call.data[PARAM_DURATION]
+    async def async_handle_control_move_ptz(self, duration: int):
+        _LOGGER.debug(f"async_handle_control_move_ptz duration is {duration},entity_type is{self._entity_type}")
         if  PARAM_PTZ not in self._entity_type:
             raise HomeAssistantError(
                 f"Invalid entity type {self._entity_type},it must be ptz button"
