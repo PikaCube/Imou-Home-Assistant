@@ -126,8 +126,12 @@ class ImouOptionsFlow(config_entries.OptionsFlow):
             data_schema=self.add_suggested_values_to_schema(
                 vol.Schema(
                     {
-                        vol.Required(PARAM_UPDATE_INTERVAL, default=60): vol.Range(min=60, max=6000),
-                        vol.Required(PARAM_DOWNLOAD_SNAP_WAIT_TIME, default=3): vol.Range(min=1, max=10),
+                        vol.Required(PARAM_UPDATE_INTERVAL, default=60): vol.All(
+                            vol.Coerce(int), vol.Range(min=30, max=900)
+                        ),
+                        vol.Required(PARAM_DOWNLOAD_SNAP_WAIT_TIME, default=3): vol.All(
+                            vol.Coerce(int), vol.Range(min=1, max=9)
+                        ),
                         vol.Required(PARAM_LIVE_RESOLUTION, default=CONF_HD): vol.In(
                             [CONF_HD, CONF_SD]
                         ),
