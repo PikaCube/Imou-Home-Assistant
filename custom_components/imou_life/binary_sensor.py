@@ -25,9 +25,6 @@ async def async_setup_entry(
             binary_sensor_entity = ImouBinarySensor(
                 imou_coordinator, entry, binary_sensor_type, device
             )
-            _LOGGER.debug(
-                f"translation_key is {binary_sensor_entity.translation_key},unique_key is {binary_sensor_entity.unique_id}"
-            )
             entities.append(binary_sensor_entity)
     if len(entities) > 0:
         async_add_entities(entities)

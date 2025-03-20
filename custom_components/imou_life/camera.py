@@ -35,9 +35,6 @@ async def async_setup_entry(  # noqa: D103
     for device in imou_coordinator.devices:
         if device.channel_id is not None:
             camera_entity = ImouCamera(imou_coordinator, entry, "camera", device)
-            _LOGGER.debug(
-                f"translation_key is {camera_entity.translation_key},unique_key is {camera_entity.unique_id}"
-            )
             entities.append(camera_entity)
     if len(entities) > 0:
         async_add_entities(entities)
