@@ -54,6 +54,7 @@ class ImouSwitch(ImouEntity, SwitchEntity):
             await self._coordinator.device_manager.async_switch_operation(
                 self._device, self._entity_type, True
             )
+            self._device.switches[self._entity_type] = True
             self.async_write_ha_state()
         except ImouException as e:
             raise HomeAssistantError(e.message)  # noqa: B904
@@ -63,6 +64,7 @@ class ImouSwitch(ImouEntity, SwitchEntity):
             await self._coordinator.device_manager.async_switch_operation(
                 self._device, self._entity_type, False
             )
+            self._device.switches[self._entity_type] = False
             self.async_write_ha_state()
         except ImouException as e:
             raise HomeAssistantError(e.message)  # noqa: B904
