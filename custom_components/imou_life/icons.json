@@ -16,15 +16,6 @@
 					"sleep": "mdi:sleep",
 					"upgrading": "mdi:cloud-arrow-up"
 				}
-			},
-			"battery": {
-				"default": "mdi:battery"
-			},
-			"temperature_current": {
-				"default": "mdi:home-thermometer-outline"
-			},
-			"humidity_current": {
-				"default": "mdi:air-humidifier"
 			}
 		},
 		"select": {
@@ -81,11 +72,6 @@
 		"camera": {
 			"camera": {
 				"default": "mdi:video"
-			}
-		},
-		"binary_sensor": {
-			"door_contact_status": {
-				"default": "mdi:door"
 			}
 		}
 	},
