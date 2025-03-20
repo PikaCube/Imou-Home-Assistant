@@ -138,8 +138,8 @@
 			"door_contact_status": {
 				"name": "Door Contact Status",
 				"state": {
-					"open": "Open",
-					"closed": "Closed"
+					"on": "Open",
+					"off": "Closed"
 				}
 			}
 		}
