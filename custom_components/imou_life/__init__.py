@@ -45,7 +45,7 @@ async def async_setup_entry(hass: HomeAssistant, config: ConfigEntry) -> bool:
     hass.data[DOMAIN][config.entry_id] = imou_coordinator
     await imou_coordinator.async_config_entry_first_refresh()
     await hass.config_entries.async_forward_entry_setups(config, PLATFORMS)
-    config.add_update_listener(async_reload_entry)
+    config.async_on_unload(config.add_update_listener(async_reload_entry))
     return True
 
 

@@ -141,8 +141,8 @@
 			"door_contact_status": {
 				"name": "门磁状态",
 				"state": {
-					"on": "已打开",
-					"off": "已关闭"
+					"on": "开",
+					"off": "关"
 				}
 			}
 		}
