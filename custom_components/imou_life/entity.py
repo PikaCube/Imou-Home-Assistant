@@ -58,9 +58,6 @@ class ImouEntity(CoordinatorEntity):
     def unique_id(self):
         """Return a unique ID to use for this entity."""
         unique_id = f"{self._device.device_id}_{self._device.channel_id if self._device.channel_id is not None else self._device.product_id}${self._entity_type}"
-        _LOGGER.debug(f"device_id is {self._device.device_id}")
-        _LOGGER.debug(f"unique_id is {unique_id}")
-        _LOGGER.debug(f"_entity_type is {self._entity_type}")
         return unique_id
 
     @property

@@ -45,7 +45,7 @@ async def async_setup_entry(
         SERVICE_CONTROL_MOVE_PTZ,
         {
             vol.Required(PARAM_ENTITY_ID): cv.entity_id,
-            vol.Required(PARAM_DURATION): cv.positive_int,
+            vol.Required(PARAM_DURATION): vol.Range(min=100,max=10000),
         },
         "async_handle_control_move_ptz",
     )
