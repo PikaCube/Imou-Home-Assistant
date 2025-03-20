@@ -2,11 +2,7 @@
 	"entity": {
 		"sensor": {
 			"storage_used": {
-				"default": "mdi:harddisk",
-				"state": {
-					"No Storage Medium": "mdi:harddisk-remove",
-					"Abnormal": "mdi:harddisk-remove"
-				}
+				"default": "mdi:harddisk"
 			},
 			"status": {
 				"default": "mdi:lan-connect",
@@ -23,10 +19,21 @@
 				"default": "mdi:weather-night"
 			},
 			"mode": {
-				"default": "mdi:auto-mode"
+				"default": "mdi:auto-mode",
+				"state": {
+					"0": "mdi:home-account",
+					"1": "mdi:exit-run",
+					"2": "mdi:shield-off"
+				}
 			},
 			"device_volume": {
-				"default": "mdi:volume-high"
+				"default": "mdi:volume-high",
+				"state": {
+					"-1": "mdi:volume-off",
+					"0": "mdi:volume-low",
+					"1": "mdi:volume-medium",
+					"2": "mdi:volume-high"
+				}
 			}
 		},
 		"switch": {
