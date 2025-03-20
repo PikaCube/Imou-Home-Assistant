@@ -138,7 +138,9 @@ class ImouOptionsFlow(config_entries.OptionsFlow):
                         vol.Required(PARAM_LIVE_PROTOCOL, default=CONF_HTTPS): vol.In(
                             [CONF_HTTPS, CONF_HTTP]
                         ),
-                        vol.Required(PARAM_ROTATION_DURATION, default=500): int,
+                        vol.Required(PARAM_ROTATION_DURATION, default=500): vol.All(
+                            vol.Coerce(int), vol.Range(min=100, max=10000)
+                        ),
                     }
                 ),
                 self.config_entry.options,
