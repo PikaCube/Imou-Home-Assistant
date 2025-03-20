@@ -38,7 +38,13 @@
 				"name": "存储使用率"
 			},
 			"status": {
-				"name": "状态"
+				"name": "状态",
+				"state": {
+					"online": "在线",
+					"offline": "离线",
+					"sleep": "休眠",
+					"upgrading": "升级中"
+				}
 			},
 			"battery": {
 				"name": "电量"
@@ -133,7 +139,11 @@
 		},
 		"binary_sensor": {
 			"door_contact_status": {
-				"name": "门磁状态"
+				"name": "门磁状态",
+				"state": {
+					"open": "已打开",
+					"close": "已关闭"
+				}
 			}
 		}
 	}
