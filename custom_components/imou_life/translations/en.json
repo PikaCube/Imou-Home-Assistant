@@ -38,7 +38,13 @@
 				"name": "Storage Used"
 			},
 			"status": {
-				"name": "Status"
+				"name": "Status",
+				"state": {
+					"online": "Online",
+					"offline": "Offline",
+					"sleep": "Sleep",
+					"upgrading": "Upgrading"
+				}
 			},
 			"battery": {
 				"name": "Battery"
@@ -130,7 +136,11 @@
 		},
 		"binary_sensor": {
 			"door_contact_status": {
-				"name": "Door Contact Status"
+				"name": "Door Contact Status",
+				"state": {
+					"open": "Open",
+					"closed": "Closed"
+				}
 			}
 		}
 	}

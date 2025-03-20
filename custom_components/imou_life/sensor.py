@@ -60,3 +60,17 @@ class ImouSensor(ImouEntity, SensorEntity):
                 return SensorDeviceClass.HUMIDITY
             case _:
                 return None
+
+    @property
+    def suggested_display_precision(self) -> int | None:
+        match self._entity_type:
+            case "battery":
+                return 0
+            case "temperature_current":
+                return 1
+            case "humidity_current":
+                return 1
+            case "storage_used":
+                return 0
+            case _:
+                return None
