@@ -1,7 +1,7 @@
 """config flow for Imou."""
 
 import logging
-from typing import Any
+from typing import Any, Dict
 
 import voluptuous as vol
 from homeassistant import config_entries
@@ -46,7 +46,7 @@ class ImouConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
     async def async_step_user(
         self, user_input: dict[str, Any] | None = None
-    ) -> ConfigFlowResult:
+    ) -> ConfigFlowResult | Dict:
         """Set up user."""
         # USER INPUT IS EMPTY RETURN TO FORM
         if user_input is None:
@@ -70,7 +70,7 @@ class ImouConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         # USER INPUT IS NOT EMPTY START LOGIN
         return await self.async_step_login(user_input)
 
-    async def async_step_login(self, user_input) -> ConfigFlowResult:
+    async def async_step_login(self, user_input) -> ConfigFlowResult | Dict:
         """Step login."""
         await self.async_set_unique_id(user_input[PARAM_APP_ID])
         self._abort_if_unique_id_configured()
