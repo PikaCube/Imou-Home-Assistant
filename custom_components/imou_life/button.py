@@ -36,9 +36,6 @@ async def async_setup_entry(
     for device in imou_coordinator.devices:
         for button_type in device.buttons:
             button_entity = ImouButton(imou_coordinator, entry, button_type, device)
-            _LOGGER.debug(
-                f"translation_key is {button_entity.translation_key},unique_key is {button_entity.unique_id}"
-            )
             entities.append(button_entity)
     if len(entities) > 0:
         async_add_entities(entities)

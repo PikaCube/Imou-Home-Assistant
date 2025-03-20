@@ -31,9 +31,6 @@ async def async_setup_entry(  # noqa: D103
     for device in imou_coordinator.devices:
         for select_type in device.selects:
             select_entity = ImouSelect(imou_coordinator, entry, select_type, device)
-            _LOGGER.debug(
-                f"translation_key is {select_entity.translation_key},unique_key is {select_entity.unique_id}"
-            )
             entities.append(select_entity)
     if len(entities) > 0:
         async_add_entities(entities)

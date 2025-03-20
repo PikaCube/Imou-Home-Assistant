@@ -58,7 +58,6 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
                 hass.config_entries.async_forward_entry_unload(entry, platform)
                 for platform in PLATFORMS
             ],
-            # async_remove_devices(hass, entry.entry_id),
         )
     )
     if unloaded:
@@ -68,8 +67,8 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
 async def async_reload_entry(hass: HomeAssistant, entry: ConfigEntry) -> None:
     """Reload config entry."""
-    await async_unload_entry(hass, entry)
-    await async_setup_entry(hass, entry)
+    _LOGGER.info("Reloading entry %s", entry.entry_id)
+    await hass.config_entries.async_reload(entry.entry_id)
 
 
 async def async_remove_devices(hass: HomeAssistant, config_entry_id: str):
