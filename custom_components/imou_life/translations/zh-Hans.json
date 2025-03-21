@@ -139,7 +139,7 @@
 		},
 		"binary_sensor": {
 			"door_contact_status": {
-				"name": "门磁状态",
+				"name": "状态",
 				"state": {
 					"on": "开",
 					"off": "关"
