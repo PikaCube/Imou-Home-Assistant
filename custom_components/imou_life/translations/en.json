@@ -27,7 +27,7 @@
 					"download_snap_wait_time": "Wait before downloading camera snapshot (seconds)",
 					"live_resolution": "Video resolution",
 					"live_protocol": "Video protocol",
-					"rotation_duration": "Head rotation time (milliseconds)"
+					"rotation_duration": "Single PTZ rotation duration (milliseconds)"
 				}
 			}
 		}
@@ -71,9 +71,9 @@
 			"mode": {
 				"name": "Mode",
 				"state": {
-					"0": "At Home",
-					"1": "Away From Home",
-					"2": "Disarm"
+					"0": "Home",
+					"1": "Away",
+					"2": "Undefended"
 				}
 			},
 			"device_volume": {
@@ -136,7 +136,7 @@
 		},
 		"binary_sensor": {
 			"door_contact_status": {
-				"name": "Door Contact Status",
+				"name": "Switch Status",
 				"state": {
 					"on": "Open",
 					"off": "Closed"
