@@ -35,7 +35,11 @@
 	"entity": {
 		"sensor": {
 			"storage_used": {
-				"name": "存储使用率"
+				"name": "存储使用率",
+				"state": {
+					"-1": "无存储介质",
+					"-2": "设备异常"
+				}
 			},
 			"status": {
 				"name": "状态",

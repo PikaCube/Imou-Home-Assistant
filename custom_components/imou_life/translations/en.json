@@ -35,7 +35,11 @@
 	"entity": {
 		"sensor": {
 			"storage_used": {
-				"name": "Storage Used"
+				"name": "Storage Used",
+				"state": {
+					"-1": "No Storage Medium",
+					"-2": "Abnormal"
+				}
 			},
 			"status": {
 				"name": "Status",
@@ -50,10 +54,10 @@
 				"name": "Battery"
 			},
 			"temperature_current": {
-				"name": "Current Temperature"
+				"name": "Temperature"
 			},
 			"humidity_current": {
-				"name": "Current Humidity"
+				"name": "Humidity"
 			}
 		},
 		"select": {

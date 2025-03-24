@@ -1,15 +1,16 @@
 # CHANGELOG
 ## [1.1.0]
 ### Added
-- 支持报警套装设备
-- 支持多目设备
-- 支持option配置
-- 支持binary sensor platform
-- 支持实体状态翻译
+- Support for Imou home security device integration
+- Support for multiple lens camera integration
+- Support for integrated option configuration
+- Support for binary sensor entity type
+- Support for Chinese translation of entity status
 
 ### Changed
-- 代码结构优化，修复了一些bug
-- 离线设备，其他实体状态不请求，减少请求量
+- Fixed some bugs
+- Optimized interaction logic with the platform, offline devices will no longer request updates
+- Other code optimizations
 
 ## [1.0.1]
 ### Added
