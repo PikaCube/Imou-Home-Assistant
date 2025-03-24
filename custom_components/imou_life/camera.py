@@ -81,15 +81,10 @@ class ImouCamera(ImouEntity, Camera):
     def is_recording(self) -> bool:
         """The battery level is normal and the motion detect is activated, indicating that it is in  recording mode."""
         return self.is_non_negative_number(
-            self._device.sensors[PARAM_STORAGE_USED]
-            if PARAM_STORAGE_USED in self._device.sensors
-            else "-1"
+            self._device.sensors.get(PARAM_STORAGE_USED, "-1")
         ) and (
-            self._device.switches[PARAM_HEADER_DETECT]
-            if PARAM_HEADER_DETECT in self._device.switches
-            else False or self._device.switches[PARAM_MOTION_DETECT]
-            if PARAM_MOTION_DETECT in self._device.switches
-            else False
+            self._device.switches.get(PARAM_HEADER_DETECT, False)
+            or self._device.switches.get(PARAM_MOTION_DETECT, False)
         )
 
     @property
@@ -101,10 +96,6 @@ class ImouCamera(ImouEntity, Camera):
     @property
     def motion_detection_enabled(self) -> bool:
         """Camera Motion Detection Status."""
-        return (
-            self._device.switches[PARAM_MOTION_DETECT]
-            if PARAM_MOTION_DETECT in self._device.switches
-            else False or self._device.switches[PARAM_HEADER_DETECT]
-            if PARAM_HEADER_DETECT in self._device.switches
-            else False
-        )
+        return self._device.switches.get(
+            PARAM_MOTION_DETECT, False
+        ) or self._device.switches.get(PARAM_HEADER_DETECT, False)
