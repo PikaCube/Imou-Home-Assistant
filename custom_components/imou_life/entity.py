@@ -1,7 +1,6 @@
 """An abstract class common to all IMOU entities."""
 
 import logging
-import re
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.helpers.device_registry import DeviceInfo
@@ -41,14 +40,10 @@ class ImouEntity(CoordinatorEntity):
                 # The combination of DeviceId and ChannelId uniquely identifies the device
                 (
                     DOMAIN,
-                    self._device.device_id + "_" + self._device.channel_id
-                    if self._device.channel_id is not None
-                    else self._device.product_id,
+                    f"{self._device.device_id}_{self._device.channel_id or self._device.product_id}",
                 )
             },
-            name=self._device.channel_name
-            if self._device.channel_name is not None
-            else self._device.device_name,
+            name=self._device.channel_name or self._device.device_name,
             manufacturer=self._device.manufacturer,
             model=self._device.model,
             sw_version=self._device.swversion,
@@ -58,7 +53,7 @@ class ImouEntity(CoordinatorEntity):
     @property
     def unique_id(self):
         """Return a unique ID to use for this entity."""
-        unique_id = f"{self._device.device_id}_{self._device.channel_id if self._device.channel_id is not None else self._device.product_id}${self._entity_type}"
+        unique_id = f"{self._device.device_id}_{self._device.channel_id or self._device.product_id}${self._entity_type}"
         return unique_id
 
     @property
