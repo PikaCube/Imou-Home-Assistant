@@ -1,6 +1,7 @@
 """An abstract class common to all IMOU entities."""
 
 import logging
+import re
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.helpers.device_registry import DeviceInfo
@@ -71,3 +72,14 @@ class ImouEntity(CoordinatorEntity):
         if self._entity_type == PARAM_STATUS:
             return True
         return self._device.sensors[PARAM_STATUS] != DeviceStatus.OFFLINE.value
+
+    @staticmethod
+    def is_non_negative_number(s):
+        try:
+            # 尝试将字符串转换为浮点数
+            number = float(s)
+            # 判断是否大于等于0
+            return number >= 0
+        except ValueError:
+            # 如果转换失败，说明字符串不是有效的数字
+            return False
