@@ -64,12 +64,12 @@
 			"night_vision_mode": {
 				"name": "Night Vision Mode",
 				"state": {
-					"Intelligent": "Intelligent",
-					"FullColor": "Full Color",
-					"Infrared": "Infrared",
+					"Intelligent": "Smart Night Vision",
+					"FullColor": "Bright Color Night Vision",
+					"Infrared": "Infrared Night Vision",
 					"Off": "Off",
-					"LowLight": "Low Light",
-					"SmartLowLight": "Smart Low Light"
+					"LowLight": "Low Light Night Vision",
+					"SmartLowLight": "Smart Low Light Night Vision"
 				}
 			},
 			"mode": {
@@ -77,7 +77,7 @@
 				"state": {
 					"0": "Home",
 					"1": "Away",
-					"2": "Undefended"
+					"2": "Disarm"
 				}
 			},
 			"device_volume": {
