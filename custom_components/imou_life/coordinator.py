@@ -66,7 +66,7 @@ class ImouDataUpdateCoordinator(DataUpdateCoordinator):
 
     async def _async_update_data(self):
         _LOGGER.info("ImouDataUpdateCoordinator update_data")
-        async with asyncio.timeout(120):
+        async with asyncio.timeout(300):
             try:
                 return await self.async_update_all_device()
             except Exception as err:
