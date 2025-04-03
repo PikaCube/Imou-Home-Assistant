@@ -6,8 +6,17 @@ from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import HomeAssistantError
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from pyimouapi.exceptions import ImouException
+from homeassistant.helpers import config_validation as cv, entity_platform
+import voluptuous as vol
 
-from .const import DOMAIN, PARAM_CURRENT_OPTION, PARAM_OPTIONS
+from .const import (
+    DOMAIN,
+    PARAM_CURRENT_OPTION,
+    PARAM_OPTIONS,
+    PARAM_ENTITY_ID,
+    SERVICE_SELECT,
+    PARAM_OPTION,
+)
 from .entity import ImouEntity
 
 _LOGGER: logging.Logger = logging.getLogger(__package__)
@@ -23,7 +32,18 @@ async def async_setup_entry(  # noqa: D103
         for select_type in device.selects:
             select_entity = ImouSelect(imou_coordinator, entry, select_type, device)
             entities.append(select_entity)
-    async_add_entities(entities)
+    if len(entities) > 0:
+        async_add_entities(entities)
+
+    platform = entity_platform.async_get_current_platform()
+    platform.async_register_entity_service(
+        SERVICE_SELECT,
+        {
+            vol.Required(PARAM_ENTITY_ID): cv.entity_id,
+            vol.Required(PARAM_OPTION): cv.string,
+        },
+        "async_select_option",
+    )
 
 
 class ImouSelect(ImouEntity, SelectEntity):
@@ -39,7 +59,7 @@ class ImouSelect(ImouEntity, SelectEntity):
 
     async def async_select_option(self, option: str) -> None:  # noqa: D102
         try:
-            await self.coordinator.device_manager.async_select_option(
+            await self._coordinator.device_manager.async_select_option(
                 self._device, self._entity_type, option
             )
             self._device.selects[self._entity_type][PARAM_CURRENT_OPTION] = option

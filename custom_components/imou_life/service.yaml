@@ -1,0 +1,54 @@
+control_move_ptz:
+  fields:
+    entity_id:
+      required: true
+      selector:
+        entity:
+          domain: button
+          integration: imou_life
+    duration:
+      required: true
+      selector:
+        number:
+          min: 100
+          max: 5000
+
+restart_device:
+  fields:
+    entity_id:
+      required: true
+      selector:
+        entity:
+          domain: button
+          integration: imou_life
+
+turn_on:
+  fields:
+    entity_id:
+      required: true
+      selector:
+        entity:
+          domain: switch
+          integration: imou_life
+
+turn_off:
+  fields:
+    entity_id:
+      required: true
+      selector:
+        entity:
+          domain: switch
+          integration: imou_life
+
+select:
+  fields:
+    entity_id:
+      required: true
+      selector:
+        entity:
+          domain: select
+          integration: imou_life
+    option:
+      required: true
+      selector:
+        text:

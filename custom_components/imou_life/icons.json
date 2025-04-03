@@ -1,66 +1,102 @@
 {
-  "entity": {
-    "sensor": {
-      "storage_used": {
-        "default": "mdi:harddisk",
-        "state": {
-          "disk_normal": "mdi:harddisk",
-          "disk_abnormal": "mdi:harddisk-remove"
-        }
-      },
-      "status": {
-        "default": "mdi:lan-connect",
-        "state": {
-          "online": "mdi:check-network",
-          "offline": "mdi:close-network",
-          "sleep": "mdi:sleep",
-          "upgrading": "mdi:cloud-arrow-up"
-        }
-      }
-    },
-    "select": {
-      "night_vision_mode": {
-        "default": "mdi:weather-night"
-      }
-    },
-    "switch": {
-      "motion_detect": {
-        "default": "mdi:motion-sensor"
-      },
-      "ab_alarm_sound": {
-        "default": "mdi:home-sound-in"
-      },
-      "close_camera": {
-        "default": "mdi:camera-off"
-      },
-      "white_light": {
-        "default": "mdi:light-flood-down"
-      },
-      "audio_encode_control": {
-        "default": "mdi:audio-input-rca"
-      }
-    },
-    "button": {
-      "ptz_up": {
-        "default": "mdi:cursor-move"
-      },
-      "ptz_down": {
-        "default": "mdi:cursor-move"
-      },
-      "ptz_left": {
-        "default": "mdi:cursor-move"
-      },
-      "ptz_right": {
-        "default": "mdi:cursor-move"
-      },
-      "restart_device": {
-        "default": "mdi:restart"
-      }
-    },
-    "camera": {
-      "camera": {
-        "default": "mdi:video"
-      }
-    }
-  }
+	"entity": {
+		"sensor": {
+			"storage_used": {
+				"default": "mdi:harddisk"
+			},
+			"status": {
+				"default": "mdi:lan-connect",
+				"state": {
+					"online": "mdi:check-network",
+					"offline": "mdi:close-network",
+					"sleep": "mdi:sleep",
+					"upgrading": "mdi:cloud-arrow-up"
+				}
+			}
+		},
+		"select": {
+			"night_vision_mode": {
+				"default": "mdi:weather-night"
+			},
+			"mode": {
+				"default": "mdi:auto-mode",
+				"state": {
+					"0": "mdi:home-account",
+					"1": "mdi:exit-run",
+					"2": "mdi:shield-off"
+				}
+			},
+			"device_volume": {
+				"default": "mdi:volume-high",
+				"state": {
+					"-1": "mdi:volume-off",
+					"0": "mdi:volume-low",
+					"1": "mdi:volume-medium",
+					"2": "mdi:volume-high"
+				}
+			}
+		},
+		"switch": {
+			"motion_detect": {
+				"default": "mdi:motion-sensor"
+			},
+			"ab_alarm_sound": {
+				"default": "mdi:home-sound-in"
+			},
+			"close_camera": {
+				"default": "mdi:camera-off"
+			},
+			"white_light": {
+				"default": "mdi:light-flood-down"
+			},
+			"audio_encode_control": {
+				"default": "mdi:audio-input-rca"
+			},
+			"header_detect": {
+				"default": "mdi:run"
+			},
+			"light": {
+				"default": "mdi:lightbulb-on"
+			}
+		},
+		"button": {
+			"ptz_up": {
+				"default": "mdi:arrow-up-bold"
+			},
+			"ptz_down": {
+				"default": "mdi:arrow-down-bold"
+			},
+			"ptz_left": {
+				"default": "mdi:arrow-left-bold"
+			},
+			"ptz_right": {
+				"default": "mdi:arrow-right-bold"
+			},
+			"restart_device": {
+				"default": "mdi:restart"
+			}
+		},
+		"camera": {
+			"camera": {
+				"default": "mdi:video"
+			}
+		}
+	},
+	"services": {
+		"turn_on": {
+			"service": "mdi:toggle-switch"
+		},
+		"turn_off": {
+			"service": "mdi:toggle-switch-off"
+		},
+		"restart_device": {
+			"service": "mdi:restart"
+		},
+		"select": {
+			"service": "mdi:cursor-pointer"
+		},
+		"control_move_ptz": {
+			"service": "mdi:cursor-move"
+		}
+	}
 }

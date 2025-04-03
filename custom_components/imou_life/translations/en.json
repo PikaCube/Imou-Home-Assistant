@@ -1,76 +1,151 @@
 {
-  "config": {
-    "step": {
-      "login": {
-        "title": "Login to IMOU Cloud",
-        "data": {
-          "app_id": "AppId",
-          "app_secret": "AppSecret",
-          "api_url": "url"
-        }
-      }
-    },
-    "abort": {
-      "already_configured": "AppId is already configured"
-    },
-    "error": {
-      "appIdOrSecret_invalid": "Invalid appId or appSecret",
-      "connect_failed": "Failed to connect to Imou",
-      "request_failed": "Request failed"
-    }
-  },
-  "entity": {
-    "sensor": {
-      "storage_used": {
-        "name": "Storage Used"
-      },
-      "status": {
-        "name": "Status"
-      }
-    },
-    "select": {
-      "night_vision_mode": {
-        "name": "Night Vision Mode"
-      }
-    },
-    "switch": {
-      "motion_detect": {
-        "name": "Motion Detect"
-      },
-      "ab_alarm_sound": {
-        "name": "Abnormal Sound Alarm"
-      },
-      "close_camera": {
-        "name": "Close Camera"
-      },
-      "white_light": {
-        "name": "White Light"
-      },
-      "audio_encode_control": {
-        "name": "Audio Encode Control"
-      }
-    },
-    "button": {
-      "ptz_up": {
-        "name": "Ptz Up"
-      },
-      "ptz_down": {
-        "name": "Ptz Down"
-      },
-      "ptz_left": {
-        "name": "Ptz Left"
-      },
-      "ptz_right": {
-        "name": "Ptz Right"
-      },
-      "restart_device": {
-        "name": "Restart Device"
-      }
-    },
-    "camera": {
-      "camera": {
-        "name": "Camera"
-      }
-    }
-  }
+	"config": {
+		"step": {
+			"login": {
+				"title": "Login to IMOU Cloud",
+				"data": {
+					"app_id": "AppId",
+					"app_secret": "AppSecret",
+					"api_url": "url"
+				}
+			}
+		},
+		"abort": {
+			"already_configured": "AppId is already configured"
+		},
+		"error": {
+			"appIdOrSecret_invalid": "Invalid appId or appSecret",
+			"connect_failed": "Failed to connect to Imou",
+			"request_failed": "Request failed"
+		}
+	},
+	"options": {
+		"step": {
+			"init": {
+				"data": {
+					"update_interval": "Polling interval (seconds)",
+					"download_snap_wait_time": "Wait before downloading camera snapshot (seconds)",
+					"live_resolution": "Video resolution",
+					"live_protocol": "Video protocol",
+					"rotation_duration": "Single PTZ rotation duration (milliseconds)"
+				}
+			}
+		}
+	},
+	"entity": {
+		"sensor": {
+			"storage_used": {
+				"name": "Storage Used",
+				"state": {
+					"-1": "No Storage Medium",
+					"-2": "Abnormal"
+				}
+			},
+			"status": {
+				"name": "Status",
+				"state": {
+					"online": "Online",
+					"offline": "Offline",
+					"sleep": "Sleep",
+					"upgrading": "Upgrading"
+				}
+			},
+			"battery": {
+				"name": "Battery"
+			},
+			"temperature_current": {
+				"name": "Temperature"
+			},
+			"humidity_current": {
+				"name": "Humidity"
+			}
+		},
+		"select": {
+			"night_vision_mode": {
+				"name": "Night Vision Mode",
+				"state": {
+					"Intelligent": "Smart Night Vision",
+					"FullColor": "Bright Color Night Vision",
+					"Infrared": "Infrared Night Vision",
+					"Off": "Off",
+					"LowLight": "Low Light Night Vision",
+					"SmartLowLight": "Smart Low Light Night Vision"
+				}
+			},
+			"mode": {
+				"name": "Mode",
+				"state": {
+					"0": "Home",
+					"1": "Away",
+					"2": "Disarm"
+				}
+			},
+			"device_volume": {
+				"name": "Volume",
+				"state": {
+					"-1": "Mute",
+					"0": "Low",
+					"1": "Medium",
+					"2": "High"
+				}
+			}
+		},
+		"switch": {
+			"motion_detect": {
+				"name": "Motion Detect"
+			},
+			"ab_alarm_sound": {
+				"name": "Abnormal Sound Alarm"
+			},
+			"close_camera": {
+				"name": "Close Camera"
+			},
+			"white_light": {
+				"name": "White Light"
+			},
+			"audio_encode_control": {
+				"name": "Audio Encode Control"
+			},
+			"header_detect": {
+				"name": "Human Detect"
+			},
+			"light": {
+				"name": "Light"
+			}
+		},
+		"button": {
+			"ptz_up": {
+				"name": "Ptz Up"
+			},
+			"ptz_down": {
+				"name": "Ptz Down"
+			},
+			"ptz_left": {
+				"name": "Ptz Left"
+			},
+			"ptz_right": {
+				"name": "Ptz Right"
+			},
+			"restart_device": {
+				"name": "Restart Device"
+			},
+			"mute": {
+				"name": "Mute"
+			}
+		},
+		"camera": {
+			"camera": {
+				"name": "Camera"
+			}
+		},
+		"binary_sensor": {
+			"door_contact_status": {
+				"name": "Switch Status",
+				"state": {
+					"on": "Open",
+					"off": "Closed"
+				}
+			}
+		}
+	}
 }

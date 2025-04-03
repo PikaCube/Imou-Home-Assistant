@@ -11,7 +11,15 @@ from pyimouapi.exceptions import ImouException
 from pyimouapi.ha_device import ImouHaDevice
 
 from . import ImouDataUpdateCoordinator
-from .const import DOMAIN, PARAM_MOTION_DETECT, PARAM_STORAGE_USED
+from .const import (
+    DOMAIN,
+    PARAM_MOTION_DETECT,
+    PARAM_STORAGE_USED,
+    PARAM_LIVE_RESOLUTION,
+    PARAM_LIVE_PROTOCOL,
+    PARAM_DOWNLOAD_SNAP_WAIT_TIME,
+    PARAM_HEADER_DETECT,
+)
 from .entity import ImouEntity
 
 _LOGGER: logging.Logger = logging.getLogger(__package__)
@@ -20,12 +28,15 @@ _LOGGER: logging.Logger = logging.getLogger(__package__)
 async def async_setup_entry(  # noqa: D103
     hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback
 ) -> None:
+    _LOGGER.info("ImouCamera.async_setup_entry")
     imou_coordinator = hass.data[DOMAIN][entry.entry_id]
     entities = []
     for device in imou_coordinator.devices:
-        camera_entity = ImouCamera(imou_coordinator, entry, device)
-        entities.append(camera_entity)
-    async_add_entities(entities)
+        if device.channel_id is not None:
+            camera_entity = ImouCamera(imou_coordinator, entry, "camera", device)
+            entities.append(camera_entity)
+    if len(entities) > 0:
+        async_add_entities(entities)
 
 
 class ImouCamera(ImouEntity, Camera):
@@ -37,17 +48,19 @@ class ImouCamera(ImouEntity, Camera):
         self,
         coordinator: ImouDataUpdateCoordinator,
         config_entry: ConfigEntry,
+        entity_type: str,
         device: ImouHaDevice,
     ):
-        """Initialize."""
         Camera.__init__(self)
-        ImouEntity.__init__(self, coordinator, config_entry, "camera", device)
+        ImouEntity.__init__(self, coordinator, config_entry, entity_type, device)
 
     async def stream_source(self) -> str | None:
         """GET STREAMING ADDRESS."""
         try:
-            return await self.coordinator.device_manager.async_get_device_stream(
-                self._device
+            return await self._coordinator.device_manager.async_get_device_stream(
+                self._device,
+                self._config_entry.options.get(PARAM_LIVE_RESOLUTION, "SD"),
+                self._config_entry.options.get(PARAM_LIVE_PROTOCOL, "https"),
             )
         except ImouException as e:
             raise HomeAssistantError(e.message)  # noqa: B904
@@ -57,8 +70,9 @@ class ImouCamera(ImouEntity, Camera):
     ) -> bytes | None:
         """Return bytes of camera image."""
         try:
-            return await self.coordinator.device_manager.async_get_device_image(
-                self._device
+            return await self._coordinator.device_manager.async_get_device_image(
+                self._device,
+                self._config_entry.options.get(PARAM_DOWNLOAD_SNAP_WAIT_TIME, 3),
             )
         except ImouException as e:
             raise HomeAssistantError(e.message)  # noqa: B904
@@ -66,9 +80,11 @@ class ImouCamera(ImouEntity, Camera):
     @property
     def is_recording(self) -> bool:
         """The battery level is normal and the motion detect is activated, indicating that it is in  recording mode."""
-        return (
-            "%" in self._device.sensors[PARAM_STORAGE_USED]
-            and self._device.switches[PARAM_MOTION_DETECT]
+        return self.is_non_negative_number(
+            self._device.sensors.get(PARAM_STORAGE_USED, "-1")
+        ) and (
+            self._device.switches.get(PARAM_HEADER_DETECT, False)
+            or self._device.switches.get(PARAM_MOTION_DETECT, False)
         )
 
     @property
@@ -80,4 +96,6 @@ class ImouCamera(ImouEntity, Camera):
     @property
     def motion_detection_enabled(self) -> bool:
         """Camera Motion Detection Status."""
-        return self._device.switches[PARAM_MOTION_DETECT]
+        return self._device.switches.get(
+            PARAM_MOTION_DETECT, False
+        ) or self._device.switches.get(PARAM_HEADER_DETECT, False)

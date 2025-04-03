@@ -15,7 +15,10 @@ class ImouDataUpdateCoordinator(DataUpdateCoordinator):
     """DATA UPDATE COORDINATOR."""
 
     def __init__(
-        self, hass: HomeAssistant, device_manager: ImouHaDeviceManager
+        self,
+        hass: HomeAssistant,
+        device_manager: ImouHaDeviceManager,
+        update_interval: int,
     ) -> None:
         """Init ImouDataUpdateCoordinator."""
         _LOGGER.info("ImouDataUpdateCoordinator init")
@@ -23,7 +26,7 @@ class ImouDataUpdateCoordinator(DataUpdateCoordinator):
             hass,
             _LOGGER,
             name="ImouDataUpdateCoordinator",
-            update_interval=timedelta(seconds=60),
+            update_interval=timedelta(seconds=update_interval),
             always_update=True,
         )
         self._device_manager = device_manager
@@ -63,7 +66,7 @@ class ImouDataUpdateCoordinator(DataUpdateCoordinator):
 
     async def _async_update_data(self):
         _LOGGER.info("ImouDataUpdateCoordinator update_data")
-        async with asyncio.timeout(120):
+        async with asyncio.timeout(300):
             try:
                 return await self.async_update_all_device()
             except Exception as err:

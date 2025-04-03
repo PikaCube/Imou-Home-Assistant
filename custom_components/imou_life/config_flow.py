@@ -1,10 +1,12 @@
 """config flow for Imou."""
 
-from typing import Any
+import logging
+from typing import Any, Dict
 
 import voluptuous as vol
 from homeassistant import config_entries
-from homeassistant.config_entries import ConfigFlowResult
+from homeassistant.config_entries import ConfigFlowResult, OptionsFlow
+from homeassistant.core import callback
 from pyimouapi.exceptions import ImouException
 from pyimouapi.openapi import ImouOpenApiClient
 
@@ -16,7 +18,19 @@ from .const import (
     PARAM_API_URL,
     PARAM_APP_ID,
     PARAM_APP_SECRET,
+    CONF_API_URL_HZ,
+    PARAM_UPDATE_INTERVAL,
+    PARAM_DOWNLOAD_SNAP_WAIT_TIME,
+    PARAM_LIVE_RESOLUTION,
+    CONF_HD,
+    CONF_SD,
+    PARAM_ROTATION_DURATION,
+    CONF_HTTPS,
+    CONF_HTTP,
+    PARAM_LIVE_PROTOCOL,
 )
+
+_LOGGER: logging.Logger = logging.getLogger(__package__)
 
 
 class ImouConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
@@ -32,7 +46,7 @@ class ImouConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
     async def async_step_user(
         self, user_input: dict[str, Any] | None = None
-    ) -> ConfigFlowResult:
+    ) -> ConfigFlowResult | Dict:
         """Set up user."""
         # USER INPUT IS EMPTY RETURN TO FORM
         if user_input is None:
@@ -43,7 +57,12 @@ class ImouConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                         vol.Required(PARAM_APP_ID): str,
                         vol.Required(PARAM_APP_SECRET): str,
                         vol.Required(PARAM_API_URL, default=CONF_API_URL_SG): vol.In(
-                            [CONF_API_URL_SG, CONF_API_URL_OR, CONF_API_URL_FK]
+                            [
+                                CONF_API_URL_SG,
+                                CONF_API_URL_OR,
+                                CONF_API_URL_FK,
+                                CONF_API_URL_HZ,
+                            ]
                         ),
                     }
                 ),
@@ -51,7 +70,7 @@ class ImouConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         # USER INPUT IS NOT EMPTY START LOGIN
         return await self.async_step_login(user_input)
 
-    async def async_step_login(self, user_input) -> ConfigFlowResult:
+    async def async_step_login(self, user_input) -> ConfigFlowResult | Dict:
         """Step login."""
         await self.async_set_unique_id(user_input[PARAM_APP_ID])
         self._abort_if_unique_id_configured()
@@ -78,9 +97,52 @@ class ImouConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                         vol.Required(PARAM_APP_ID): str,
                         vol.Required(PARAM_APP_SECRET): str,
                         vol.Required(PARAM_API_URL, default=CONF_API_URL_SG): vol.In(
-                            [CONF_API_URL_SG, CONF_API_URL_OR, CONF_API_URL_FK]
+                            [
+                                CONF_API_URL_SG,
+                                CONF_API_URL_OR,
+                                CONF_API_URL_FK,
+                                CONF_API_URL_HZ,
+                            ]
                         ),
                     }
                 ),
                 errors=errors,
             )
+
+    @staticmethod
+    @callback
+    def async_get_options_flow(config_entry: config_entries.ConfigEntry) -> OptionsFlow:
+        """Get the options flow for this handler."""
+        return ImouOptionsFlow()
+
+
+class ImouOptionsFlow(config_entries.OptionsFlow):
+    async def async_step_init(self, user_input=None):
+        """Manage the options."""
+        if user_input is not None:
+            return self.async_create_entry(data=user_input)
+        return self.async_show_form(
+            step_id="init",
+            data_schema=self.add_suggested_values_to_schema(
+                vol.Schema(
+                    {
+                        vol.Required(PARAM_UPDATE_INTERVAL, default=60): vol.All(
+                            vol.Coerce(int), vol.Range(min=30, max=900)
+                        ),
+                        vol.Required(PARAM_DOWNLOAD_SNAP_WAIT_TIME, default=3): vol.All(
+                            vol.Coerce(int), vol.Range(min=1, max=9)
+                        ),
+                        vol.Required(PARAM_LIVE_RESOLUTION, default=CONF_HD): vol.In(
+                            [CONF_HD, CONF_SD]
+                        ),
+                        vol.Required(PARAM_LIVE_PROTOCOL, default=CONF_HTTPS): vol.In(
+                            [CONF_HTTPS, CONF_HTTP]
+                        ),
+                        vol.Required(PARAM_ROTATION_DURATION, default=500): vol.All(
+                            vol.Coerce(int), vol.Range(min=100, max=10000)
+                        ),
+                    }
+                ),
+                self.config_entry.options,
+            ),
+        )
