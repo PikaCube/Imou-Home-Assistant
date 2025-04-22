@@ -91,3 +91,8 @@ async def async_remove_config_entry_device(
     device_registry_object = dr.async_get(hass)
     device_registry_object.async_remove_device(device_entry.id)
     return True
+
+class ImouEntityFeature:
+    """Imou entity feature."""
+    PTZ = 1
+    RESTART=2

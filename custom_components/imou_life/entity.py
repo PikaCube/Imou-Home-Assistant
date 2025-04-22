@@ -7,8 +7,8 @@ from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from pyimouapi.ha_device import DeviceStatus, ImouHaDevice
 
-from . import ImouDataUpdateCoordinator
-from .const import DOMAIN, PARAM_STATUS
+from . import ImouDataUpdateCoordinator, ImouEntityFeature
+from .const import DOMAIN, PARAM_STATUS, PARAM_PTZ, PARAM_RESTART_DEVICE
 
 _LOGGER: logging.Logger = logging.getLogger(__package__)
 
@@ -24,6 +24,7 @@ class ImouEntity(CoordinatorEntity):
         config_entry: ConfigEntry,
         entity_type: str,
         device: ImouHaDevice,
+        ref_id: str = None
     ) -> None:
         """Init ImouEntity."""
         super().__init__(coordinator)
@@ -31,6 +32,7 @@ class ImouEntity(CoordinatorEntity):
         self._config_entry = config_entry
         self._entity_type = entity_type
         self._device = device
+        self._ref_id = ref_id
 
     @property
     def device_info(self) -> DeviceInfo:
@@ -78,3 +80,16 @@ class ImouEntity(CoordinatorEntity):
         except ValueError:
             # 如果转换失败，说明字符串不是有效的数字
             return False
+
+    @property
+    def supported_features(self) -> int | None:
+        """Return device class."""
+        if PARAM_PTZ in self._entity_type:
+            return ImouEntityFeature.PTZ
+        if PARAM_RESTART_DEVICE == self._entity_type:
+            return ImouEntityFeature.RESTART
+        return None
+
+    @property
+    def ref_id(self)->str|None:
+        return self._ref_id

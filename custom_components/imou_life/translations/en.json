@@ -69,7 +69,13 @@
 					"Infrared": "Infrared Night Vision",
 					"Off": "Off",
 					"LowLight": "Low Light Night Vision",
-					"SmartLowLight": "Smart Low Light Night Vision"
+					"SmartLowLight": "Smart Low Light Night Vision",
+					"0": "Smart Night Vision",
+					"1": "Bright Color Night Vision",
+					"2": "Infrared Night Vision",
+					"3": "Off",
+					"4": "Custom Mode",
+					"5": "Low Light Bright Color Night Vision"
 				}
 			},
 			"mode": {

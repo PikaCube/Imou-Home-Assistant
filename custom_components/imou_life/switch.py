@@ -8,6 +8,7 @@ from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import HomeAssistantError
 from homeassistant.helpers import config_validation as cv, entity_platform
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
+from pyimouapi.const import PARAM_STATE
 from pyimouapi.exceptions import ImouException
 
 from .const import DOMAIN, PARAM_ENTITY_ID, SERVICE_TURN_ON, SERVICE_TURN_OFF
@@ -71,4 +72,4 @@ class ImouSwitch(ImouEntity, SwitchEntity):
 
     @property
     def is_on(self) -> bool | None:  # noqa: D102
-        return self._device.switches[self._entity_type]
+        return self._device.switches[self._entity_type][PARAM_STATE]
