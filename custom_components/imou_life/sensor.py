@@ -20,7 +20,7 @@ async def async_setup_entry(
     entities = []
     for device in imou_coordinator.devices:
         for sensor_type,value in device.sensors.items():
-            sensor_entity = ImouSensor(imou_coordinator, entry, sensor_type, device,value[PARAM_REF])
+            sensor_entity = ImouSensor(imou_coordinator, entry, sensor_type, device,value[PARAM_REF] if PARAM_REF in value else None)
             entities.append(sensor_entity)
     if len(entities) > 0:
         async_add_entities(entities)

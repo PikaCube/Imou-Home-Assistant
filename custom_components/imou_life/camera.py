@@ -42,8 +42,6 @@ async def async_setup_entry(  # noqa: D103
 class ImouCamera(ImouEntity, Camera):
     """imou camera."""
 
-    _attr_supported_features = CameraEntityFeature.STREAM
-
     def __init__(
         self,
         coordinator: ImouDataUpdateCoordinator,
@@ -99,3 +97,8 @@ class ImouCamera(ImouEntity, Camera):
         return self._device.switches.get(
             PARAM_MOTION_DETECT, False
         ) or self._device.switches.get(PARAM_HEADER_DETECT, False)
+
+    @property
+    def supported_features(self) -> int | None:
+        """Camera Motion Detection Status."""
+        return CameraEntityFeature.STREAM

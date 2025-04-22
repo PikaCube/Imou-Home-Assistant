@@ -24,7 +24,7 @@ async def async_setup_entry(
     for device in imou_coordinator.devices:
         for binary_sensor_type,value in device.binary_sensors.items():
             binary_sensor_entity = ImouBinarySensor(
-                imou_coordinator, entry, binary_sensor_type, device,value[PARAM_REF]
+                imou_coordinator, entry, binary_sensor_type, device,value[PARAM_REF] if PARAM_REF in value else None
             )
             entities.append(binary_sensor_entity)
     if len(entities) > 0:

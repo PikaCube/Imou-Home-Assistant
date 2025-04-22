@@ -35,7 +35,7 @@ async def async_setup_entry(
     entities = []
     for device in imou_coordinator.devices:
         for button_type,value in device.buttons.items():
-            button_entity = ImouButton(imou_coordinator, entry, button_type, device,value[PARAM_REF])
+            button_entity = ImouButton(imou_coordinator, entry, button_type, device,value[PARAM_REF] if PARAM_REF in value else None)
             entities.append(button_entity)
     if len(entities) > 0:
         async_add_entities(entities)

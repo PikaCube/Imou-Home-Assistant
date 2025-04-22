@@ -31,7 +31,7 @@ async def async_setup_entry(  # noqa: D103
     entities: list[ImouSelect] = []
     for device in imou_coordinator.devices:
         for select_type,value in device.selects.items():
-            select_entity = ImouSelect(imou_coordinator, entry, select_type, device,value[PARAM_REF])
+            select_entity = ImouSelect(imou_coordinator, entry, select_type, device,value[PARAM_REF] if PARAM_REF in value else None)
             entities.append(select_entity)
     if len(entities) > 0:
         async_add_entities(entities)
