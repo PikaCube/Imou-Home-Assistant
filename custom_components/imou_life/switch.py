@@ -8,7 +8,7 @@ from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import HomeAssistantError
 from homeassistant.helpers import config_validation as cv, entity_platform
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
-from pyimouapi.const import PARAM_STATE, PARAM_REF
+from pyimouapi.const import PARAM_STATE
 from pyimouapi.exceptions import ImouException
 
 from .const import DOMAIN, PARAM_ENTITY_ID, SERVICE_TURN_ON, SERVICE_TURN_OFF
@@ -24,8 +24,8 @@ async def async_setup_entry(  # noqa: D103
     imou_coordinator = hass.data[DOMAIN][entry.entry_id]
     entities = []
     for device in imou_coordinator.devices:
-        for switch_type,value in device.switches.items():
-            switch_entity = ImouSwitch(imou_coordinator, entry, switch_type, device,value[PARAM_REF] if PARAM_REF in value else None)
+        for switch_type, value in device.switches.items():
+            switch_entity = ImouSwitch(imou_coordinator, entry, switch_type, device)
             entities.append(switch_entity)
     if len(entities) > 0:
         async_add_entities(entities)
@@ -53,7 +53,9 @@ class ImouSwitch(ImouEntity, SwitchEntity):
     async def async_turn_on(self, **kwargs: Any) -> None:  # noqa: D102
         try:
             await self._coordinator.device_manager.async_switch_operation(
-                self._device, self._entity_type, True
+                self._device,
+                self._entity_type,
+                True,
             )
             self._device.switches[self._entity_type] = True
             self.async_write_ha_state()
@@ -63,7 +65,9 @@ class ImouSwitch(ImouEntity, SwitchEntity):
     async def async_turn_off(self, **kwargs: Any) -> None:  # noqa: D102
         try:
             await self._coordinator.device_manager.async_switch_operation(
-                self._device, self._entity_type, False
+                self._device,
+                self._entity_type,
+                False,
             )
             self._device.switches[self._entity_type] = False
             self.async_write_ha_state()

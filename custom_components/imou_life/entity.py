@@ -24,7 +24,6 @@ class ImouEntity(CoordinatorEntity):
         config_entry: ConfigEntry,
         entity_type: str,
         device: ImouHaDevice,
-        ref_id: str = None
     ) -> None:
         """Init ImouEntity."""
         super().__init__(coordinator)
@@ -32,7 +31,6 @@ class ImouEntity(CoordinatorEntity):
         self._config_entry = config_entry
         self._entity_type = entity_type
         self._device = device
-        self._ref_id = ref_id
 
     @property
     def device_info(self) -> DeviceInfo:
@@ -89,7 +87,3 @@ class ImouEntity(CoordinatorEntity):
         if PARAM_RESTART_DEVICE == self._entity_type:
             return ImouEntityFeature.RESTART
         return None
-
-    @property
-    def ref_id(self)->str|None:
-        return self._ref_id

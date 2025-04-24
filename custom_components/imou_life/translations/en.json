@@ -58,6 +58,24 @@
 			},
 			"humidity_current": {
 				"name": "Humidity"
+			},
+			"power": {
+				"name": "Power"
+			},
+			"voltage": {
+				"name": "Voltage"
+			},
+			"current": {
+				"name": "Current"
+			},
+			"switch_cnt": {
+				"name": "Toggle Count"
+			},
+			"use_electricity": {
+				"name": "Electricity"
+			},
+			"use_time": {
+				"name": "Time"
 			}
 		},
 		"select": {
@@ -117,6 +135,9 @@
 			},
 			"light": {
 				"name": "Light"
+			},
+			"switch": {
+				"name": "Plug Switch"
 			}
 		},
 		"button": {
@@ -151,6 +172,14 @@
 					"on": "Open",
 					"off": "Closed"
 				}
+			}
+		},
+		"text": {
+			"count_down_switch": {
+				"name": "Switch Countdown"
+			},
+			"overcharge_switch": {
+				"name": "Overload Power"
 			}
 		}
 	}

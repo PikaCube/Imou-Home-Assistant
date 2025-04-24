@@ -7,7 +7,7 @@ from homeassistant.components.binary_sensor import (
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
-from pyimouapi.const import PARAM_STATE, PARAM_REF
+from pyimouapi.const import PARAM_STATE
 
 from .const import DOMAIN
 from .entity import ImouEntity
@@ -22,9 +22,12 @@ async def async_setup_entry(
     imou_coordinator = hass.data[DOMAIN][entry.entry_id]
     entities = []
     for device in imou_coordinator.devices:
-        for binary_sensor_type,value in device.binary_sensors.items():
+        for binary_sensor_type, value in device.binary_sensors.items():
             binary_sensor_entity = ImouBinarySensor(
-                imou_coordinator, entry, binary_sensor_type, device,value[PARAM_REF] if PARAM_REF in value else None
+                imou_coordinator,
+                entry,
+                binary_sensor_type,
+                device,
             )
             entities.append(binary_sensor_entity)
     if len(entities) > 0:

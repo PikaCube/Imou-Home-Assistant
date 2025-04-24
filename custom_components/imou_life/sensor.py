@@ -4,7 +4,7 @@ from homeassistant.components.sensor import SensorEntity, SensorDeviceClass
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
-from pyimouapi.const import PARAM_STATE, PARAM_REF
+from pyimouapi.const import PARAM_STATE
 
 from .const import DOMAIN
 from .entity import ImouEntity
@@ -19,8 +19,8 @@ async def async_setup_entry(
     imou_coordinator = hass.data[DOMAIN][entry.entry_id]
     entities = []
     for device in imou_coordinator.devices:
-        for sensor_type,value in device.sensors.items():
-            sensor_entity = ImouSensor(imou_coordinator, entry, sensor_type, device,value[PARAM_REF] if PARAM_REF in value else None)
+        for sensor_type, value in device.sensors.items():
+            sensor_entity = ImouSensor(imou_coordinator, entry, sensor_type, device)
             entities.append(sensor_entity)
     if len(entities) > 0:
         async_add_entities(entities)

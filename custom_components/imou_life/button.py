@@ -9,7 +9,7 @@ from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import HomeAssistantError
 from homeassistant.helpers import config_validation as cv, entity_platform
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
-from pyimouapi.const import PARAM_DURATION, PARAM_REF
+from pyimouapi.const import PARAM_DURATION
 from pyimouapi.exceptions import ImouException
 
 from .const import (
@@ -34,8 +34,13 @@ async def async_setup_entry(
     imou_coordinator = hass.data[DOMAIN][entry.entry_id]
     entities = []
     for device in imou_coordinator.devices:
-        for button_type,value in device.buttons.items():
-            button_entity = ImouButton(imou_coordinator, entry, button_type, device,value[PARAM_REF] if PARAM_REF in value else None)
+        for button_type, value in device.buttons.items():
+            button_entity = ImouButton(
+                imou_coordinator,
+                entry,
+                button_type,
+                device,
+            )
             entities.append(button_entity)
     if len(entities) > 0:
         async_add_entities(entities)

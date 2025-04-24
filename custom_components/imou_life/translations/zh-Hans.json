@@ -58,6 +58,24 @@
 			},
 			"humidity_current": {
 				"name": "当前湿度"
+			},
+			"power": {
+				"name": "功率"
+			},
+			"voltage": {
+				"name": "电压"
+			},
+			"current": {
+				"name": "电流"
+			},
+			"switch_cnt": {
+				"name": "开关次数"
+			},
+			"use_electricity": {
+				"name": "用电量"
+			},
+			"use_time": {
+				"name": "使用时间"
 			}
 		},
 		"select": {
@@ -112,8 +130,8 @@
 			"light": {
 				"name": "设备指示灯"
 			},
-			"door_contact_status": {
-				"name": "门磁状态"
+			"switch": {
+				"name": "插座开关"
 			}
 		},
 		"button": {
@@ -148,6 +166,14 @@
 					"on": "开",
 					"off": "关"
 				}
+			}
+		},
+		"text": {
+			"count_down_switch": {
+				"name": "开关倒计时"
+			},
+			"overcharge_switch": {
+				"name": "过载功率"
 			}
 		}
 	}
