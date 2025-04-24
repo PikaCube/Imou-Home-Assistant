@@ -108,6 +108,15 @@ class ImouButton(ImouEntity, ButtonEntity):
         except ImouException as e:
             raise HomeAssistantError(e.message)  # noqa: B904
 
+    @property
+    def supported_features(self) -> int | None:
+        """Return device class."""
+        if PARAM_PTZ in self._entity_type:
+            return ImouButtonFeature.PTZ
+        if PARAM_RESTART_DEVICE == self._entity_type:
+            return ImouButtonFeature.RESTART
+        return None
+
 class ImouButtonFeature:
     """Imou entity feature."""
 
