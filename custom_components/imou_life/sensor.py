@@ -49,13 +49,13 @@ class ImouSensor(ImouEntity, SensorEntity):
             case "power":
                 return "W"
             case "voltage":
-                return "mV"
+                return "V"
             case "current":
-                return "mA"
+                return "A"
             case "use_electricity":
                 return "kWh"
             case "use_time":
-                return "s"
+                return "min"
             case _:
                 return None
 
