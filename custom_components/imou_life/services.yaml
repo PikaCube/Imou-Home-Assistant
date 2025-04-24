@@ -6,7 +6,7 @@ control_move_ptz:
         entity:
           domain: button
           supported_features:
-            - button.ImouEntityFeature.PTZ
+            - button.ImouButtonFeature.PTZ
           integration: imou_life
     duration:
       required: true
@@ -23,7 +23,7 @@ restart_device:
         entity:
           domain: button
           supported_features:
-            - button.ImouEntityFeature.RESTART
+            - button.ImouButtonFeature.RESTART
           integration: imou_life
 
 turn_on:

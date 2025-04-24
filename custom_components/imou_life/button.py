@@ -107,3 +107,9 @@ class ImouButton(ImouEntity, ButtonEntity):
             )
         except ImouException as e:
             raise HomeAssistantError(e.message)  # noqa: B904
+
+class ImouButtonFeature:
+    """Imou entity feature."""
+
+    PTZ = 1
+    RESTART = 2
