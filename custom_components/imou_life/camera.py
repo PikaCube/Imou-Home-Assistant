@@ -7,6 +7,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import HomeAssistantError
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
+from pyimouapi.const import PARAM_STATE
 from pyimouapi.exceptions import ImouException
 from pyimouapi.ha_device import ImouHaDevice
 
@@ -79,10 +80,10 @@ class ImouCamera(ImouEntity, Camera):
     def is_recording(self) -> bool:
         """The battery level is normal and the motion detect is activated, indicating that it is in  recording mode."""
         return self.is_non_negative_number(
-            self._device.sensors.get(PARAM_STORAGE_USED, "-1")
+            self._device.sensors[PARAM_STORAGE_USED][PARAM_STATE] if self._device.sensors.get(PARAM_STORAGE_USED) else "-1"
         ) and (
-            self._device.switches.get(PARAM_HEADER_DETECT, False)
-            or self._device.switches.get(PARAM_MOTION_DETECT, False)
+                (self._device.switches[PARAM_HEADER_DETECT][PARAM_STATE] if  self._device.switches.get(PARAM_HEADER_DETECT) else False)
+           or (self._device.switches[PARAM_MOTION_DETECT][PARAM_STATE] if  self._device.switches.get(PARAM_MOTION_DETECT) else False)
         )
 
     @property

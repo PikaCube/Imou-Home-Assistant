@@ -2,7 +2,7 @@ import logging
 from typing import Any
 
 import voluptuous as vol
-from homeassistant.components.switch import SwitchEntity
+from homeassistant.components.switch import SwitchEntity, SwitchDeviceClass
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import HomeAssistantError
@@ -77,3 +77,9 @@ class ImouSwitch(ImouEntity, SwitchEntity):
     @property
     def is_on(self) -> bool | None:  # noqa: D102
         return self._device.switches[self._entity_type][PARAM_STATE]
+
+    @property
+    def device_class(self) -> SwitchDeviceClass | None:
+        if "switch" == self._entity_type:
+            return SwitchDeviceClass.SWITCH
+        return None

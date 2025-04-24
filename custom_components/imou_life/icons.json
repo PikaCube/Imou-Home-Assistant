@@ -12,6 +12,9 @@
 					"sleep": "mdi:sleep",
 					"upgrading": "mdi:cloud-arrow-up"
 				}
+			},
+			"switch_cnt": {
+				"default": "mdi:counter"
 			}
 		},
 		"select": {
@@ -79,6 +82,14 @@
 		"camera": {
 			"camera": {
 				"default": "mdi:video"
+			}
+		},
+		"text": {
+			"count_down_switch": {
+				"default": "mdi:timer"
+			},
+			"overcharge_switch": {
+				"default": "mdi:power-plug-off"
 			}
 		}
 	},

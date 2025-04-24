@@ -46,6 +46,16 @@ class ImouSensor(ImouEntity, SensorEntity):
                 return "°C"
             case "humidity_current":
                 return "%RH"
+            case "power":
+                return "W"
+            case "voltage":
+                return "mV"
+            case "current":
+                return "mA"
+            case "use_electricity":
+                return "kWh"
+            case "use_time":
+                return "s"
             case _:
                 return None
 
@@ -58,6 +68,16 @@ class ImouSensor(ImouEntity, SensorEntity):
                 return SensorDeviceClass.TEMPERATURE
             case "humidity_current":
                 return SensorDeviceClass.HUMIDITY
+            case "power":
+                return SensorDeviceClass.POWER
+            case "voltage":
+                return SensorDeviceClass.VOLTAGE
+            case "current":
+                return SensorDeviceClass.CURRENT
+            case "use_electricity":
+                return SensorDeviceClass.ENERGY
+            case "use_time":
+                return SensorDeviceClass.DURATION
             case _:
                 return None
 
