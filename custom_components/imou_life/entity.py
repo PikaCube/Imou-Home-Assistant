@@ -9,7 +9,7 @@ from pyimouapi.const import PARAM_STATE
 from pyimouapi.ha_device import DeviceStatus, ImouHaDevice
 
 from . import ImouDataUpdateCoordinator
-from .const import DOMAIN, PARAM_STATUS, PARAM_PTZ, PARAM_RESTART_DEVICE
+from .const import DOMAIN, PARAM_STATUS
 
 _LOGGER: logging.Logger = logging.getLogger(__package__)
 
