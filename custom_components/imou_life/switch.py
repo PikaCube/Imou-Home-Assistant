@@ -57,7 +57,7 @@ class ImouSwitch(ImouEntity, SwitchEntity):
                 self._entity_type,
                 True,
             )
-            self._device.switches[self._entity_type] = True
+            self._device.switches[self._entity_type][PARAM_STATE] = True
             self.async_write_ha_state()
         except ImouException as e:
             raise HomeAssistantError(e.message)  # noqa: B904
@@ -69,7 +69,7 @@ class ImouSwitch(ImouEntity, SwitchEntity):
                 self._entity_type,
                 False,
             )
-            self._device.switches[self._entity_type] = False
+            self._device.switches[self._entity_type][PARAM_STATE] = False
             self.async_write_ha_state()
         except ImouException as e:
             raise HomeAssistantError(e.message)  # noqa: B904

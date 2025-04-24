@@ -67,7 +67,10 @@ class ImouEntity(CoordinatorEntity):
         """Return entity is available."""
         if self._entity_type == PARAM_STATUS:
             return True
-        return self._device.sensors[PARAM_STATUS][PARAM_STATE] != DeviceStatus.OFFLINE.value
+        return (
+            self._device.sensors[PARAM_STATUS][PARAM_STATE]
+            != DeviceStatus.OFFLINE.value
+        )
 
     @staticmethod
     def is_non_negative_number(s):

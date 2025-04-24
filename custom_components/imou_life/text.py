@@ -43,13 +43,14 @@ class ImouSensor(ImouEntity, TextEntity):
                 self._entity_type,
                 value,
             )
+            self._device.texts[self._entity_type][PARAM_STATE] = value
         except ImouException as e:
             raise HomeAssistantError(e.message)  # noqa: B904
 
     @property
     def pattern(self):
-        if PARAM_OVERCHARGE_SWITCH==self._entity_type:
-            return '^(?:[5-9]|[1-9][0-9]{1,3}|2[0-4][0-9]{2}|2500)$'
-        elif PARAM_COUNT_DOWN_SWITCH==self._entity_type:
-            return '^(?:[1-9]|[1-9][0-9]{1,5})$'
+        if PARAM_OVERCHARGE_SWITCH == self._entity_type:
+            return "^(?:[5-9]|[1-9][0-9]{1,3}|2[0-4][0-9]{2}|2500)$"
+        elif PARAM_COUNT_DOWN_SWITCH == self._entity_type:
+            return "^(?:[1-9]|[1-9][0-9]{1,5})$"
         return None
