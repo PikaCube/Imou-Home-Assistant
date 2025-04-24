@@ -69,13 +69,13 @@
 				"name": "Current"
 			},
 			"switch_cnt": {
-				"name": "Toggle Count"
+				"name": "On-Off Today"
 			},
 			"use_electricity": {
-				"name": "Electricity"
+				"name": "Consumption"
 			},
 			"use_time": {
-				"name": "Time"
+				"name": "Runtime"
 			}
 		},
 		"select": {
@@ -176,10 +176,10 @@
 		},
 		"text": {
 			"count_down_switch": {
-				"name": "Switch Countdown"
+				"name": "Timer (minutes)"
 			},
 			"overcharge_switch": {
-				"name": "Overload Power"
+				"name": "Maximum Power(W)"
 			}
 		}
 	}

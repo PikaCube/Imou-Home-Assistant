@@ -52,5 +52,5 @@ class ImouSensor(ImouEntity, TextEntity):
         if PARAM_OVERCHARGE_SWITCH == self._entity_type:
             return "^(?:[5-9]|[1-9][0-9]{1,3}|2[0-4][0-9]{2}|2500)$"
         elif PARAM_COUNT_DOWN_SWITCH == self._entity_type:
-            return "^(?:[1-9]|[1-9][0-9]{1,5})$"
+            return "^(?:0|[1-9]|[1-9][0-9]{1,2}|1[0-3][0-9]{2}|14[0-3][0-9]|1440)$"
         return None
