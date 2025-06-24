@@ -45,7 +45,7 @@ class ImouSensor(ImouEntity, SensorEntity):
             case "temperature_current":
                 return "°C"
             case "humidity_current":
-                return "%RH"
+                return "%"
             case "power":
                 return "W"
             case "voltage":
@@ -91,6 +91,8 @@ class ImouSensor(ImouEntity, SensorEntity):
             case "humidity_current":
                 return 1
             case "storage_used":
-                return 0
+                if self.is_non_negative_number(self.native_value):
+                    return 0
+                return None
             case _:
                 return None

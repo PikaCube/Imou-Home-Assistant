@@ -82,5 +82,3 @@ class ImouEntity(CoordinatorEntity):
         except ValueError:
             # 如果转换失败，说明字符串不是有效的数字
             return False
-
-

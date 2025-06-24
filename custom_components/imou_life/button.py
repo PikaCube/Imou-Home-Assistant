@@ -27,7 +27,7 @@ _LOGGER: logging.Logger = logging.getLogger(__package__)
 
 
 async def async_setup_entry(
-    hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback
+        hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback
 ) -> None:
     """Set up button."""
     _LOGGER.info("ImouButton.async_setup_entry")
@@ -50,7 +50,7 @@ async def async_setup_entry(
         SERVICE_CONTROL_MOVE_PTZ,
         {
             vol.Required(PARAM_ENTITY_ID): cv.entity_id,
-            vol.Required(PARAM_DURATION): vol.All(
+            vol.Required(PARAM_DURATION, default=500): vol.All(
                 vol.Coerce(int), vol.Range(min=100, max=10000)
             ),
         },
@@ -107,18 +107,3 @@ class ImouButton(ImouEntity, ButtonEntity):
             )
         except ImouException as e:
             raise HomeAssistantError(e.message)  # noqa: B904
-
-    @property
-    def supported_features(self) -> int | None:
-        """Return device class."""
-        if PARAM_PTZ in self._entity_type:
-            return ImouButtonFeature.PTZ
-        if PARAM_RESTART_DEVICE == self._entity_type:
-            return ImouButtonFeature.RESTART
-        return None
-
-class ImouButtonFeature:
-    """Imou entity feature."""
-
-    PTZ = 1
-    RESTART = 2

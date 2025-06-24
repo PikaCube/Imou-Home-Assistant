@@ -79,11 +79,14 @@ class ImouCamera(ImouEntity, Camera):
     @property
     def is_recording(self) -> bool:
         """The battery level is normal and the motion detect is activated, indicating that it is in  recording mode."""
-        return self.is_non_negative_number(
-            self._device.sensors[PARAM_STORAGE_USED][PARAM_STATE]
-            if self._device.sensors.get(PARAM_STORAGE_USED)
-            else "-1"
-        ) and self.motion_detection_enabled
+        return (
+            self.is_non_negative_number(
+                self._device.sensors[PARAM_STORAGE_USED][PARAM_STATE]
+                if self._device.sensors.get(PARAM_STORAGE_USED)
+                else "-1"
+            )
+            and self.motion_detection_enabled
+        )
 
     @property
     def is_streaming(self) -> bool:  # noqa: D102

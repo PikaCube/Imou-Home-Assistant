@@ -1,185 +1,209 @@
 {
-	"config": {
-		"step": {
-			"login": {
-				"title": "连接至IMOU云",
-				"data": {
-					"app_id": "AppId",
-					"app_secret": "AppSecret",
-					"api_url": "网址"
-				}
-			}
-		},
-		"abort": {
-			"already_configured": "该AppId已配置"
-		},
-		"error": {
-			"appIdOrSecret_invalid": "appId或者appSecret有误",
-			"connect_failed": "连接失败",
-			"request_failed": "请求失败"
-		}
-	},
-	"options": {
-		"step": {
-			"init": {
-				"data": {
-					"update_interval": "自动刷新时间（秒）",
-					"download_snap_wait_time": "下载抓图等待时间（秒）",
-					"live_resolution": "视频分辨率",
-					"live_protocol": "视频协议",
-					"rotation_duration": "云台转动持续时间（毫秒）"
-				}
-			}
-		}
-	},
-	"entity": {
-		"sensor": {
-			"storage_used": {
-				"name": "存储使用率",
-				"state": {
-					"-1": "无存储介质",
-					"-2": "设备异常"
-				}
-			},
-			"status": {
-				"name": "状态",
-				"state": {
-					"online": "在线",
-					"offline": "离线",
-					"sleep": "休眠",
-					"upgrading": "升级中"
-				}
-			},
-			"battery": {
-				"name": "电量"
-			},
-			"temperature_current": {
-				"name": "当前温度"
-			},
-			"humidity_current": {
-				"name": "当前湿度"
-			},
-			"power": {
-				"name": "当前功率"
-			},
-			"voltage": {
-				"name": "当前电压"
-			},
-			"current": {
-				"name": "当前电流"
-			},
-			"switch_cnt": {
-				"name": "今日开关次数"
-			},
-			"use_electricity": {
-				"name": "用电量"
-			},
-			"use_time": {
-				"name": "开启时长"
-			}
-		},
-		"select": {
-			"night_vision_mode": {
-				"name": "夜视模式",
-				"state": {
-					"Intelligent": "智能夜视",
-					"FullColor": "全彩夜视",
-					"Infrared": "红外夜视",
-					"Off": "关闭",
-					"LowLight": "微光夜视",
-					"SmartLowLight": "智能微光夜视",
-					"0": "智能夜视",
-					"1": "全彩夜视",
-					"2": "红外夜视",
-					"3": "关闭",
-					"4": "自定义夜视"
-				}
-			},
-			"mode": {
-				"name": "模式",
-				"state": {
-					"0": "在家",
-					"1": "离家",
-					"2": "撤防"
-				}
-			},
-			"device_volume": {
-				"name": "音量",
-				"state": {
-					"-1": "静音",
-					"0": "低",
-					"1": "中",
-					"2": "高"
-				}
-			}
-		},
-		"switch": {
-			"motion_detect": {
-				"name": "移动检测"
-			},
-			"ab_alarm_sound": {
-				"name": "异常音告警"
-			},
-			"close_camera": {
-				"name": "隐私模式"
-			},
-			"white_light": {
-				"name": "白光灯"
-			},
-			"audio_encode_control": {
-				"name": "音频编码"
-			},
-			"header_detect": {
-				"name": "人形检测"
-			},
-			"light": {
-				"name": "设备指示灯"
-			},
-			"switch": {
-				"name": "插座开关"
-			}
-		},
-		"button": {
-			"ptz_up": {
-				"name": "云台向上"
-			},
-			"ptz_down": {
-				"name": "云台向下"
-			},
-			"ptz_left": {
-				"name": "云台向左"
-			},
-			"ptz_right": {
-				"name": "云台向右"
-			},
-			"restart_device": {
-				"name": "重启设备"
-			},
-			"mute": {
-				"name": "一键消音"
-			}
-		},
-		"camera": {
-			"camera": {
-				"name": "直播"
-			}
-		},
-		"binary_sensor": {
-			"door_contact_status": {
-				"name": "状态",
-				"state": {
-					"on": "开",
-					"off": "关"
-				}
-			}
-		},
-		"text": {
-			"count_down_switch": {
-				"name": "开关倒计时（分钟）"
-			},
-			"overcharge_switch": {
-				"name": "最大功率（W）"
-			}
-		}
-	}
+  "config": {
+    "step": {
+      "login": {
+        "title": "连接至IMOU云",
+        "data": {
+          "app_id": "AppId",
+          "app_secret": "AppSecret",
+          "api_url": "网址"
+        }
+      }
+    },
+    "abort": {
+      "already_configured": "该AppId已配置"
+    },
+    "error": {
+      "appIdOrSecret_invalid": "appId或者appSecret有误",
+      "connect_failed": "连接失败",
+      "request_failed": "请求失败"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "data": {
+          "update_interval": "自动刷新时间（秒）",
+          "download_snap_wait_time": "下载抓图等待时间（秒）",
+          "live_resolution": "视频分辨率",
+          "live_protocol": "视频协议",
+          "rotation_duration": "云台转动持续时间（毫秒）"
+        }
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "storage_used": {
+        "name": "存储使用率",
+        "state": {
+          "e1": "无存储介质",
+          "e2": "设备异常"
+        }
+      },
+      "status": {
+        "name": "状态",
+        "state": {
+          "online": "在线",
+          "offline": "离线",
+          "sleep": "休眠",
+          "upgrading": "升级中"
+        }
+      },
+      "battery": {
+        "name": "电量"
+      },
+      "temperature_current": {
+        "name": "当前温度"
+      },
+      "humidity_current": {
+        "name": "当前湿度"
+      },
+      "power": {
+        "name": "当前功率"
+      },
+      "voltage": {
+        "name": "当前电压"
+      },
+      "current": {
+        "name": "当前电流"
+      },
+      "switch_cnt": {
+        "name": "今日开关次数"
+      },
+      "use_electricity": {
+        "name": "用电量"
+      },
+      "use_time": {
+        "name": "开启时长"
+      }
+    },
+    "select": {
+      "night_vision_mode": {
+        "name": "夜视模式",
+        "state": {
+          "Intelligent": "智能夜视",
+          "FullColor": "全彩夜视",
+          "Infrared": "红外夜视",
+          "Off": "关闭",
+          "LowLight": "微光夜视",
+          "SmartLowLight": "智能微光夜视",
+          "0": "智能夜视",
+          "1": "全彩夜视",
+          "2": "红外夜视",
+          "3": "关闭",
+          "4": "自定义夜视"
+        }
+      },
+      "mode": {
+        "name": "模式",
+        "state": {
+          "0": "在家",
+          "1": "离家",
+          "2": "撤防"
+        }
+      },
+      "device_volume": {
+        "name": "音量",
+        "state": {
+          "-1": "静音",
+          "0": "低",
+          "1": "中",
+          "2": "高"
+        }
+      }
+    },
+    "switch": {
+      "motion_detect": {
+        "name": "移动检测"
+      },
+      "ab_alarm_sound": {
+        "name": "异常音告警"
+      },
+      "close_camera": {
+        "name": "隐私模式"
+      },
+      "white_light": {
+        "name": "白光灯"
+      },
+      "audio_encode_control": {
+        "name": "音频编码"
+      },
+      "header_detect": {
+        "name": "人形检测"
+      },
+      "light": {
+        "name": "设备指示灯"
+      },
+      "switch": {
+        "name": "插座开关"
+      }
+    },
+    "button": {
+      "ptz_up": {
+        "name": "云台向上"
+      },
+      "ptz_down": {
+        "name": "云台向下"
+      },
+      "ptz_left": {
+        "name": "云台向左"
+      },
+      "ptz_right": {
+        "name": "云台向右"
+      },
+      "restart_device": {
+        "name": "重启设备"
+      },
+      "mute": {
+        "name": "一键消音"
+      }
+    },
+    "camera": {
+      "camera": {
+        "name": "直播"
+      }
+    },
+    "binary_sensor": {
+      "door_contact_status": {
+        "name": "状态",
+        "state": {
+          "on": "开",
+          "off": "关"
+        }
+      }
+    },
+    "text": {
+      "count_down_switch": {
+        "name": "开关倒计时（分钟）"
+      },
+      "overcharge_switch": {
+        "name": "最大功率（W）"
+      }
+    }
+  },
+  "services": {
+    "turn_on": {
+      "name": "打开"
+    },
+    "turn_off": {
+      "name": "关闭"
+    },
+    "restart_device": {
+      "name": "重启"
+    },
+    "select": {
+      "name": "选择"
+    },
+    "control_move_ptz": {
+      "name": "转动云台",
+      "description": "控制云台转动",
+      "fields": {
+        "duration ": {
+          "name": "转动时间 ",
+          "description": "云台转动时间"
+        }
+      }
+    }
+  }
 }

@@ -5,11 +5,11 @@ control_move_ptz:
       selector:
         entity:
           domain: button
-          supported_features:
-            - button.ImouButtonFeature.PTZ
           integration: imou_life
     duration:
-      required: true
+      required: false
+      default: 500
+      example: 500
       selector:
         number:
           min: 100
@@ -22,8 +22,6 @@ restart_device:
       selector:
         entity:
           domain: button
-          supported_features:
-            - button.ImouButtonFeature.RESTART
           integration: imou_life
 
 turn_on:
