@@ -4,6 +4,7 @@ from homeassistant.components.sensor import SensorEntity, SensorDeviceClass
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
+from pyimouapi.const import PARAM_STATE
 
 from .const import DOMAIN
 from .entity import ImouEntity
@@ -18,7 +19,7 @@ async def async_setup_entry(
     imou_coordinator = hass.data[DOMAIN][entry.entry_id]
     entities = []
     for device in imou_coordinator.devices:
-        for sensor_type in device.sensors:
+        for sensor_type, value in device.sensors.items():
             sensor_entity = ImouSensor(imou_coordinator, entry, sensor_type, device)
             entities.append(sensor_entity)
     if len(entities) > 0:
@@ -30,7 +31,7 @@ class ImouSensor(ImouEntity, SensorEntity):
 
     @property
     def native_value(self):
-        return self._device.sensors[self._entity_type]
+        return self._device.sensors[self._entity_type][PARAM_STATE]
 
     @property
     def native_unit_of_measurement(self) -> str | None:
@@ -44,7 +45,17 @@ class ImouSensor(ImouEntity, SensorEntity):
             case "temperature_current":
                 return "°C"
             case "humidity_current":
-                return "%RH"
+                return "%"
+            case "power":
+                return "W"
+            case "voltage":
+                return "V"
+            case "current":
+                return "A"
+            case "use_electricity":
+                return "kWh"
+            case "use_time":
+                return "min"
             case _:
                 return None
 
@@ -57,6 +68,16 @@ class ImouSensor(ImouEntity, SensorEntity):
                 return SensorDeviceClass.TEMPERATURE
             case "humidity_current":
                 return SensorDeviceClass.HUMIDITY
+            case "power":
+                return SensorDeviceClass.POWER
+            case "voltage":
+                return SensorDeviceClass.VOLTAGE
+            case "current":
+                return SensorDeviceClass.CURRENT
+            case "use_electricity":
+                return SensorDeviceClass.ENERGY
+            case "use_time":
+                return SensorDeviceClass.DURATION
             case _:
                 return None
 
@@ -70,6 +91,8 @@ class ImouSensor(ImouEntity, SensorEntity):
             case "humidity_current":
                 return 1
             case "storage_used":
-                return 0
+                if self.is_non_negative_number(self.native_value):
+                    return 0
+                return None
             case _:
                 return None

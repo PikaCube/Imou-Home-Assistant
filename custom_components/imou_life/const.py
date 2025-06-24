@@ -35,6 +35,8 @@ PARAM_ROTATION_DURATION = "rotation_duration"
 PARAM_ENTITY_ID = "entity_id"
 PARAM_PTZ = "ptz"
 PARAM_OPTION = "option"
+PARAM_COUNT_DOWN_SWITCH = "count_down_switch"
+PARAM_OVERCHARGE_SWITCH = "overcharge_switch"
 
 # service
 SERVICE_RESTART_DEVICE = "restart_device"
@@ -44,4 +46,4 @@ SERVICE_TURN_OFF = "turn_off"
 SERVICE_SELECT = "select"
 
 
-PLATFORMS = ["select", "sensor", "switch", "camera", "button", "binary_sensor"]
+PLATFORMS = ["select", "sensor", "switch", "camera", "button", "binary_sensor", "text"]

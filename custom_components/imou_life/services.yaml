@@ -7,7 +7,9 @@ control_move_ptz:
           domain: button
           integration: imou_life
     duration:
-      required: true
+      required: false
+      default: 500
+      example: 500
       selector:
         number:
           min: 100

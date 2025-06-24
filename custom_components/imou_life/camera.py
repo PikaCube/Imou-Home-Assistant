@@ -7,6 +7,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import HomeAssistantError
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
+from pyimouapi.const import PARAM_STATE
 from pyimouapi.exceptions import ImouException
 from pyimouapi.ha_device import ImouHaDevice
 
@@ -41,8 +42,6 @@ async def async_setup_entry(  # noqa: D103
 
 class ImouCamera(ImouEntity, Camera):
     """imou camera."""
-
-    _attr_supported_features = CameraEntityFeature.STREAM
 
     def __init__(
         self,
@@ -80,11 +79,13 @@ class ImouCamera(ImouEntity, Camera):
     @property
     def is_recording(self) -> bool:
         """The battery level is normal and the motion detect is activated, indicating that it is in  recording mode."""
-        return self.is_non_negative_number(
-            self._device.sensors.get(PARAM_STORAGE_USED, "-1")
-        ) and (
-            self._device.switches.get(PARAM_HEADER_DETECT, False)
-            or self._device.switches.get(PARAM_MOTION_DETECT, False)
+        return (
+            self.is_non_negative_number(
+                self._device.sensors[PARAM_STORAGE_USED][PARAM_STATE]
+                if self._device.sensors.get(PARAM_STORAGE_USED)
+                else "-1"
+            )
+            and self.motion_detection_enabled
         )
 
     @property
@@ -96,6 +97,15 @@ class ImouCamera(ImouEntity, Camera):
     @property
     def motion_detection_enabled(self) -> bool:
         """Camera Motion Detection Status."""
-        return self._device.switches.get(
-            PARAM_MOTION_DETECT, False
-        ) or self._device.switches.get(PARAM_HEADER_DETECT, False)
+        return (
+            self._device.switches[PARAM_HEADER_DETECT][PARAM_STATE]
+            if self._device.switches.get(PARAM_HEADER_DETECT)
+            else False or self._device.switches[PARAM_MOTION_DETECT][PARAM_STATE]
+            if self._device.switches.get(PARAM_MOTION_DETECT)
+            else False
+        )
+
+    @property
+    def supported_features(self) -> int | None:
+        """Camera Motion Detection Status."""
+        return CameraEntityFeature.STREAM

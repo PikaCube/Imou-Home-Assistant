@@ -1,13 +1,13 @@
 import logging
 
+import voluptuous as vol
 from homeassistant.components.select import SelectEntity
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import HomeAssistantError
+from homeassistant.helpers import config_validation as cv, entity_platform
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from pyimouapi.exceptions import ImouException
-from homeassistant.helpers import config_validation as cv, entity_platform
-import voluptuous as vol
 
 from .const import (
     DOMAIN,
@@ -29,7 +29,7 @@ async def async_setup_entry(  # noqa: D103
     imou_coordinator = hass.data[DOMAIN][entry.entry_id]
     entities: list[ImouSelect] = []
     for device in imou_coordinator.devices:
-        for select_type in device.selects:
+        for select_type, value in device.selects.items():
             select_entity = ImouSelect(imou_coordinator, entry, select_type, device)
             entities.append(select_entity)
     if len(entities) > 0:

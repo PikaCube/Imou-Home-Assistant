@@ -1,4 +1,11 @@
 # CHANGELOG
+## [1.2.0]
+### Added
+- Support the access of smart sockets
+### Changed
+- Fixed some bugs
+- Optimize the operation logic of IoT devices
+
 ## [1.1.0]
 ### Added
 - Support for Imou home security device integration

@@ -5,6 +5,7 @@ import logging
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
+from pyimouapi.const import PARAM_STATE
 from pyimouapi.ha_device import DeviceStatus, ImouHaDevice
 
 from . import ImouDataUpdateCoordinator
@@ -66,7 +67,10 @@ class ImouEntity(CoordinatorEntity):
         """Return entity is available."""
         if self._entity_type == PARAM_STATUS:
             return True
-        return self._device.sensors[PARAM_STATUS] != DeviceStatus.OFFLINE.value
+        return (
+            self._device.sensors[PARAM_STATUS][PARAM_STATE]
+            != DeviceStatus.OFFLINE.value
+        )
 
     @staticmethod
     def is_non_negative_number(s):

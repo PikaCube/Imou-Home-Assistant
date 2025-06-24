@@ -27,15 +27,20 @@ _LOGGER: logging.Logger = logging.getLogger(__package__)
 
 
 async def async_setup_entry(
-    hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback
+        hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback
 ) -> None:
     """Set up button."""
     _LOGGER.info("ImouButton.async_setup_entry")
     imou_coordinator = hass.data[DOMAIN][entry.entry_id]
     entities = []
     for device in imou_coordinator.devices:
-        for button_type in device.buttons:
-            button_entity = ImouButton(imou_coordinator, entry, button_type, device)
+        for button_type, value in device.buttons.items():
+            button_entity = ImouButton(
+                imou_coordinator,
+                entry,
+                button_type,
+                device,
+            )
             entities.append(button_entity)
     if len(entities) > 0:
         async_add_entities(entities)
@@ -45,7 +50,7 @@ async def async_setup_entry(
         SERVICE_CONTROL_MOVE_PTZ,
         {
             vol.Required(PARAM_ENTITY_ID): cv.entity_id,
-            vol.Required(PARAM_DURATION): vol.All(
+            vol.Required(PARAM_DURATION, default=500): vol.All(
                 vol.Coerce(int), vol.Range(min=100, max=10000)
             ),
         },
