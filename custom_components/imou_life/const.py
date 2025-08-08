@@ -37,6 +37,10 @@ PARAM_PTZ = "ptz"
 PARAM_OPTION = "option"
 PARAM_COUNT_DOWN_SWITCH = "count_down_switch"
 PARAM_OVERCHARGE_SWITCH = "overcharge_switch"
+PARAM_USE_LOCAL_STREAM = "use_local_stream"
+PARAM_RTSP_URL = "rtsp_url"
+PARAM_USERNAME = "username"
+PARAM_PASSWORD = "password"
 
 # service
 SERVICE_RESTART_DEVICE = "restart_device"

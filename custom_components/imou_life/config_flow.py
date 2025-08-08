@@ -28,6 +28,10 @@ from .const import (
     CONF_HTTPS,
     CONF_HTTP,
     PARAM_LIVE_PROTOCOL,
+    PARAM_USE_LOCAL_STREAM,
+    PARAM_RTSP_URL,
+    PARAM_USERNAME,
+    PARAM_PASSWORD,
 )
 
 _LOGGER: logging.Logger = logging.getLogger(__package__)
@@ -141,6 +145,10 @@ class ImouOptionsFlow(config_entries.OptionsFlow):
                         vol.Required(PARAM_ROTATION_DURATION, default=500): vol.All(
                             vol.Coerce(int), vol.Range(min=100, max=10000)
                         ),
+                        vol.Required(PARAM_USE_LOCAL_STREAM, default=False): bool,
+                        vol.Optional(PARAM_RTSP_URL, default=""): str,
+                        vol.Optional(PARAM_USERNAME, default=""): str,
+                        vol.Optional(PARAM_PASSWORD, default=""): str,
                     }
                 ),
                 self.config_entry.options,
