@@ -20,6 +20,10 @@ from .const import (
     PARAM_LIVE_PROTOCOL,
     PARAM_DOWNLOAD_SNAP_WAIT_TIME,
     PARAM_HEADER_DETECT,
+    PARAM_USE_LOCAL_STREAM,
+    PARAM_RTSP_URL,
+    PARAM_USERNAME,
+    PARAM_PASSWORD,
 )
 from .entity import ImouEntity
 
@@ -55,6 +59,13 @@ class ImouCamera(ImouEntity, Camera):
 
     async def stream_source(self) -> str | None:
         """GET STREAMING ADDRESS."""
+        if self._config_entry.options.get(PARAM_USE_LOCAL_STREAM):
+            rtsp_url = self._config_entry.options.get(PARAM_RTSP_URL)
+            username = self._config_entry.options.get(PARAM_USERNAME)
+            password = self._config_entry.options.get(PARAM_PASSWORD)
+            if rtsp_url and username and password:
+                return f"rtsp://{username}:{password}@{rtsp_url}"
+            return None
         try:
             return await self._coordinator.device_manager.async_get_device_stream(
                 self._device,
